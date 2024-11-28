@@ -1,10 +1,9 @@
 import React from 'react';
-import {SafeAreaView, StatusBar,LogBox, StyleSheet} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import {LogBox, StyleSheet} from 'react-native';
 import RootNavigation from '../nfc/src/navigation/RootNavigation'; // Root navigation system
 import {Provider} from 'react-redux';
-import {store} from './src/stateManagement/store'; // Redux store
-
+import { store } from './src/stateManagement/Store';
+// import {store} from './src/stateManagement/store'; 
 
 const App = () => {
   LogBox.ignoreAllLogs();

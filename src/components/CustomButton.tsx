@@ -8,7 +8,7 @@ import {
   ViewProps,
 } from 'react-native';
 import React from 'react';
-import {COLORS, ICONS} from '../resources';
+import {COLORS, ICONS, SHADOW} from '../resources';
 
 interface BtnProps {
   style: any;
@@ -22,13 +22,15 @@ const CustomButton = (props: BtnProps) => {
       onPress={onPress}
       style={[
         {
-          backgroundColor: COLORS.fbBlue,
+          backgroundColor: COLORS.primary,
           marginTop: '5%',
           padding: '3%',
           justifyContent: 'center',
           alignItems: 'center',
           alignSelf: 'center',
           flexDirection: 'row',
+          borderRadius: 30,
+          ...SHADOW
         },
         style,
       ]}>
@@ -36,10 +38,21 @@ const CustomButton = (props: BtnProps) => {
         style={{
           color: COLORS.white,
           fontSize: 14,
-          fontFamily: 'Roboto-Regular',
+          fontWeight: 'bold',
+        
         }}>
         {title}
       </Text>
+      <Image style={{
+        width:30,
+        height:30,
+
+
+      }}
+      resizeMode='contain'
+      source={ICONS.RIGHT_ARROW}>
+
+      </Image>
     </TouchableOpacity>
   );
 };
