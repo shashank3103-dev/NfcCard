@@ -5,8 +5,10 @@ import LinearGradient from "react-native-linear-gradient";
 import { ICONS, STRINGS } from "../../resources";
 import CustomButton from "../../components/CustomButton";
 import { TextInput } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
-const Login = ({navigation}) => {
+const Login = () => {
+  const navigation = useNavigation();
   return (
     <LinearGradient
       colors={[COLORS.white, COLORS.fadePrimary, COLORS.primary]} // Define your gradient colors here
@@ -75,8 +77,8 @@ const Login = ({navigation}) => {
             width: SIZES.width * 0.8,
           }}
           title={"Countinue"}
-          onPress={()=>{
-                navigation.navigate("OTP")
+          onPress={() => {
+            navigation.navigate("OTP" as never);
           }}
         />
       </View>

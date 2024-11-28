@@ -7,10 +7,12 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { COLORS, ICONS, SHADOW, SIZES } from "../../resources";
+import { useNavigation } from "@react-navigation/native";
 
 const { width } = Dimensions.get("window");
 
-const SplashScreen = ({ navigation }) => {
+const SplashScreen = () => {
+  const navigation = useNavigation();
   const scale = useSharedValue(0);
   const opacity = useSharedValue(0);
 
@@ -23,7 +25,7 @@ const SplashScreen = ({ navigation }) => {
     opacity.value = withTiming(1, { duration: 1500 });
 
     const timer = setTimeout(() => {
-      navigation.replace("Login");
+      navigation.navigate("Login" as never);
     }, 3000);
 
     return () => clearTimeout(timer);

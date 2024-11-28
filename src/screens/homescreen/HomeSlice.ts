@@ -2,8 +2,7 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
 import URLManager from '../../networkLayer/URLManager';
 import {Alert} from 'react-native';
-import { HomeInterface } from '../../stateManagement/models/HomeScreenModel';
-
+import {HomeInterface} from '../../stateManagement/models/HomeScreenModel';
 
 export const getData = createAsyncThunk(
   'home/getData',

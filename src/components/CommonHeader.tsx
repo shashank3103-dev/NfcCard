@@ -6,10 +6,10 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
-import React from 'react';
-import {COLORS, ICONS, SIZES, FONTS} from '../resources';
-import {useNavigation} from '@react-navigation/native';
+} from "react-native";
+import React from "react";
+import { COLORS, ICONS, SIZES, FONTS } from "../resources";
+import { useNavigation } from "@react-navigation/native";
 interface CommonHeader {
   title: string;
 }
@@ -19,20 +19,22 @@ const CommonHeader = (props: CommonHeader) => {
     <View
       style={{
         height:
-          Platform.OS == 'ios' ? SIZES.height * 0.11 : SIZES.height * 0.08,
+          Platform.OS == "ios" ? SIZES.height * 0.11 : SIZES.height * 0.08,
         backgroundColor: COLORS.primary,
-        paddingHorizontal: '5%',
-        paddingTop: Platform.OS == 'ios' ? '7%' : '0%',
-        flexDirection: 'row',
-      }}>
+        paddingHorizontal: "5%",
+        paddingTop: Platform.OS == "ios" ? "7%" : "0%",
+        flexDirection: "row",
+      }}
+    >
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();
         }}
-        style={{marginTop: '8%'}}>
+        style={{ marginTop: "8%" }}
+      >
         <Image
           resizeMode="contain"
-          style={{height: 16, width: 16}}
+          style={{ height: 16, width: 16 }}
           source={ICONS.BACK_ICON}
         />
       </TouchableOpacity>
@@ -43,9 +45,10 @@ const CommonHeader = (props: CommonHeader) => {
           marginLeft: 20,
           color: COLORS.white,
           ...FONTS.body3,
-          fontWeight: '600',
-          marginTop: '7.5%',
-        }}>
+          fontWeight: "600",
+          marginTop: "7.5%",
+        }}
+      >
         {props.title}
       </Text>
     </View>
