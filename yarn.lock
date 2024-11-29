@@ -7540,6 +7540,7 @@ __metadata:
     react-native-encrypted-storage: ^4.0.3
     react-native-gesture-handler: ^2.21.2
     react-native-linear-gradient: ^2.8.3
+    react-native-otp-inputs: ^7.4.0
     react-native-reanimated: ^3.16.3
     react-native-safe-area-context: ^4.14.0
     react-native-screens: ^4.3.0
@@ -8294,6 +8295,17 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: f980d324e551bbc475c6406bdc5250a08242020cbe653412fa169bbdf51e28a502e225de105b4d696d6a1a1b733d44782469020f4936d8b3ce0e2c78e51cf58f
+  languageName: node
+  linkType: hard
+
+"react-native-otp-inputs@npm:^7.4.0":
+  version: 7.4.0
+  resolution: "react-native-otp-inputs@npm:7.4.0"
+  peerDependencies:
+    "@react-native-clipboard/clipboard": "*"
+    react: "*"
+    react-native: "*"
+  checksum: 4c1398e4ee0969fd55edb58ff89f7fd23fe8b22aab6e0b96ed07e2a7744c9fa98f3e5f1ffdf019af2a2cbc5505eab1f15c13f020ce278400dc11cddbd6e9b7aa
   languageName: node
   linkType: hard
 
