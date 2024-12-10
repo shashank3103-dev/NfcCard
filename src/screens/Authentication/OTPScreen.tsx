@@ -17,6 +17,7 @@ import OtpInputs from "react-native-otp-inputs";
 import { ICONS, UTILITIES } from "../../resources";
 import { storageKeys } from "../../resources/Constants";
 import URLManager from "../../networkLayer/URLManager";
+import { blue } from "react-native-reanimated/lib/typescript/Colors";
 
 const OtpScreen = ({ navigation, route }: any) => {
   const [otp, setOtp] = useState("");
@@ -25,7 +26,7 @@ const OtpScreen = ({ navigation, route }: any) => {
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const [timeLeft, setTimeLeft] = useState(45);
-  const [userId, setUserId] = useState<string>("");
+  // const [userId, setUserId] = useState<string>("");
 
   const [loading, setLoading] = useState(false);
   const [confirmedOtp, setconfirmedOtp] = useState<string>("");
@@ -43,7 +44,7 @@ const OtpScreen = ({ navigation, route }: any) => {
     if (route?.params?.data) {
       console.log(route.params);
       setconfirmedOtp(route.params?.data?.otp);
-      setUserId(route.params?.data?.user_id);
+      // setUserId(route.params?.data?.user_id);
     }
   }, [route.params]);
 
@@ -52,7 +53,7 @@ const OtpScreen = ({ navigation, route }: any) => {
       setLoading(true);
       let urlManager = new URLManager();
       return urlManager
-        .verifyOTP({ otp_code: otp, email: email, })
+        .verifyOTP({ otp_code: otp, email: email })
         .then((res) => {
           console.log(res);
           return res.json() as Promise<any>;
@@ -81,7 +82,6 @@ const OtpScreen = ({ navigation, route }: any) => {
         .finally(() => {
           setLoading(false);
         });
-
     } catch (er) {
       console.log(er);
     }
@@ -124,7 +124,7 @@ const OtpScreen = ({ navigation, route }: any) => {
   //     } else if (otp != confirmedOtp) {
   //     Alert.alert("Error", "Invalid OTP");
   //   } else {
-      
+
   //     verifyOTPApiCall();
   //   }
   // };
@@ -149,7 +149,6 @@ const OtpScreen = ({ navigation, route }: any) => {
           //  padding: SIZES.padding,
         }}
       >
-
         <View
           style={{
             paddingVertical: windowHeight * 0.05,
@@ -161,7 +160,7 @@ const OtpScreen = ({ navigation, route }: any) => {
             style={{
               width: SIZES.width * 0.6,
               height: SIZES.height * 0.3,
-              alignSelf:'center',
+              alignSelf: "center",
             }}
             resizeMode="contain"
             source={ICONS.APP_LOGO_ICON}
@@ -197,7 +196,7 @@ const OtpScreen = ({ navigation, route }: any) => {
               inputContainerStyles={styles.inputContainer}
               focusStyles={styles.inputContainerFocused}
               inputStyles={styles.inputStyle}
-              selectionColor={COLORS.white}
+              selectionColor={COLORS.primary}
               autofillFromClipboard={false}
             />
           </View>
@@ -228,7 +227,7 @@ const OtpScreen = ({ navigation, route }: any) => {
               style={{
                 marginTop: "3%",
                 fontWeight: "600",
-                color: COLORS.primary,
+                color:COLORS.white,
               }}
             >
               {" "}
@@ -252,7 +251,7 @@ export default OtpScreen;
 
 const styles = StyleSheet.create({
   otpContainer: {
-    marginTop: 40,
+    marginTop: 30,
     marginBottom: 20,
     // margin:2,
     // gap:10,
@@ -265,14 +264,16 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: COLORS.black,
-    backgroundColor:COLORS.white,
+    borderColor: COLORS.gray,
+    backgroundColor: COLORS.white,
     alignItems: "center",
     justifyContent: "center",
-    ...SHADOW
+    // ...SHADOW,
+    
+    elevation:5,
   },
   inputContainerFocused: {
-    borderColor: COLORS.white,
+    borderColor: COLORS.primary,
   },
   inputStyle: {
     fontSize: 20,

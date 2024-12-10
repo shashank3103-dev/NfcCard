@@ -123,7 +123,7 @@ const Login = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  Enter Your
+                  Enter your
                 </Text>
                 <Text
                   style={{
@@ -149,10 +149,12 @@ const Login = () => {
                   style={{
                     width: SIZES.width * 0.8,
                     height: SIZES.height * 0.08,
+                    marginStart:10,
                   }}
                   onChangeText={(text: string) => setEmail(text)}
                   keyboardType="email-address"
-                  placeholder=" Phone Number / Email"
+                  placeholder=" Enter your Email"
+                  
                 />
               </View>
               <CustomButton

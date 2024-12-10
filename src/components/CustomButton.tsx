@@ -6,9 +6,9 @@ import {
   TouchableOpacity,
   View,
   ViewProps,
-} from 'react-native';
-import React from 'react';
-import {COLORS, ICONS, SHADOW} from '../resources';
+} from "react-native";
+import React from "react";
+import { COLORS, ICONS, SHADOW } from "../resources";
 
 interface BtnProps {
   style: any;
@@ -16,43 +16,45 @@ interface BtnProps {
   onPress: () => void;
 }
 const CustomButton = (props: BtnProps) => {
-  const {style, title, onPress} = props;
+  const { style, title, onPress } = props;
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[
         {
           backgroundColor: COLORS.primary,
-          marginTop: '5%',
-          padding: '3%',
-          justifyContent: 'center',
-          alignItems: 'center',
-          alignSelf: 'center',
-          flexDirection: 'row',
+          marginTop: "5%",
+          padding: "3%",
+          justifyContent: "center",
+          alignItems: "center",
+          alignSelf: "center",
+          flexDirection: "row",
           borderRadius: 30,
-          ...SHADOW
+          ...SHADOW,
         },
         style,
-      ]}>
+      ]}
+    >
       <Text
         style={{
           color: COLORS.white,
           fontSize: 14,
-          fontWeight: 'bold',
-        
-        }}>
+          fontWeight: "bold",
+          position: "absolute",
+        }}
+      >
         {title}
       </Text>
-      <Image style={{
-        width:30,
-        height:30,
 
-
-      }}
-      resizeMode='contain'
-      source={ICONS.RIGHT_ARROW}>
-
-      </Image>
+      <Image
+        style={{
+          width: 30,
+          height: 30,
+          marginStart: 200,
+        }}
+        resizeMode="contain"
+        source={ICONS.RIGHT_ARROW}
+      ></Image>
     </TouchableOpacity>
   );
 };
