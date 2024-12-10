@@ -6,7 +6,7 @@ export const platform = Platform.OS;
 export const kHEADERLANGUAGE = 'en_US';
 export const kCLIENTVERSION = '1.2.1:' + platform;
 
-export const baseUrl = 'https://backended.krazy11.in';
+export const baseUrl = 'https://kashishpal6.pythonanywhere.com';
 // Used for async storage
 export const storageKeys = {
   kTOKEN: 'token',
@@ -18,9 +18,9 @@ export const storageKeys = {
 };
 
 export const EndPoints = {
-  GETDATAENDPOINT: '/send-otp',
-  PHONELOGIN: '/send-otp',
-  VERIFY_OTP: '/check-otp/',
+  GETDATAENDPOINT: '/user/login/',
+  EMAIL_LOGIN: '/user/login/',
+  VERIFY_OTP: '/user/verify-otp/',
   GET_USER_DETAIL: '/getUserDetail',
   UPDATE_USER_DETAIL: '/updateUser',
   UPLOAD_USER_IMAGE: '/uploadProfileImage',

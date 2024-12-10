@@ -5,19 +5,138 @@ import {
   Image,
   KeyboardAvoidingView,
   Platform,
+  TouchableOpacity,
+  useWindowDimensions,
+  Alert,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { COLORS, SHADOW, SIZES } from "../../resources/Theme";
 import LinearGradient from "react-native-linear-gradient";
-import { ICONS, STRINGS } from "../../resources";
 import CustomButton from "../../components/CustomButton";
-import { TextInput } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
-import OtpInputs from 'react-native-otp-inputs';
+import OtpInputs from "react-native-otp-inputs";
+import { ICONS, UTILITIES } from "../../resources";
+import { storageKeys } from "../../resources/Constants";
+import URLManager from "../../networkLayer/URLManager";
 
-const OtpScreen = () => {
-  const navigation = useNavigation();
-    const [otp, setOtp] = useState('');
+const OtpScreen = ({ navigation, route }: any) => {
+  const [otp, setOtp] = useState("");
+
+  const { email } = route.params;
+  const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
+  const [timeLeft, setTimeLeft] = useState(45);
+  const [userId, setUserId] = useState<string>("");
+
+  const [loading, setLoading] = useState(false);
+  const [confirmedOtp, setconfirmedOtp] = useState<string>("");
+
+  useEffect(() => {
+    if (timeLeft === 0) return;
+
+    const timer = setTimeout(() => {
+      setTimeLeft(timeLeft - 1);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [timeLeft]);
+  useEffect(() => {
+    if (route?.params?.data) {
+      console.log(route.params);
+      setconfirmedOtp(route.params?.data?.otp);
+      setUserId(route.params?.data?.user_id);
+    }
+  }, [route.params]);
+
+  const verifyOTPApiCall = () => {
+    try {
+      setLoading(true);
+      let urlManager = new URLManager();
+      return urlManager
+        .verifyOTP({ otp_code: otp, email: email, })
+        .then((res) => {
+          console.log(res);
+          return res.json() as Promise<any>;
+        })
+        .then(async (res: any) => {
+          if (!res.error) {
+            UTILITIES.setDataInStorage(
+              storageKeys.kPROFILE_DETAILS,
+              JSON.stringify(route?.params?.data)
+            );
+            await UTILITIES.setDataInEncriptedStorage(
+              storageKeys.kTOKEN,
+              route?.params?.token
+            );
+            navigation.navigate("Home");
+          } else {
+            // if (res.error == 'Failed to send OTP')
+            Alert.alert("Error", res.error);
+          }
+          console.log(res);
+        })
+        .catch((e) => {
+          Alert.alert(e.name, e.message);
+          return e.response;
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+
+    } catch (er) {
+      console.log(er);
+    }
+  };
+  // const verifyOTPApiCall = async () => {
+  //   setLoading(true);
+
+  //   try {
+  //     const urlManager = new URLManager();
+  //     const response = await urlManager.verifyOTP({ email, otp_code: otp });
+  //     const res = await response.json();
+
+  //     console.log("OTP Response:", res);
+
+  //     if (res.error) {
+  //       Alert.alert("Error", res.error || "Invalid OTP. Please try again.");
+  //     } else {
+  //       // OTP verified successfully
+  //       await UTILITIES.setDataInStorage(
+  //         storageKeys.kPROFILE_DETAILS,
+  //         JSON.stringify(res)
+  //       );
+  //       await UTILITIES.setDataInEncriptedStorage(
+  //         storageKeys.kTOKEN,
+  //         res.token
+  //       );
+  //       navigation.navigate("Home");
+  //     }
+  //   } catch (error: any) {
+  //     console.error("OTP Verification Error:", error);
+  //     Alert.alert("Error", error.message || "Something went wrong!");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  // const handleOTP = () => {
+  //   if (otp.length < 6) {
+  //     Alert.alert("Error", "Please enter a valid 6-digit OTP.");
+  //     } else if (otp != confirmedOtp) {
+  //     Alert.alert("Error", "Invalid OTP");
+  //   } else {
+      
+  //     verifyOTPApiCall();
+  //   }
+  // };
+  async function handleOTP() {
+    if (otp.length < 6) {
+      Alert.alert("Error", "Please enter OTP");
+    } else if (otp != confirmedOtp) {
+      Alert.alert("Error", "Invalid OTP");
+    } else {
+      await verifyOTPApiCall();
+    }
+  }
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -30,138 +149,99 @@ const OtpScreen = () => {
           //  padding: SIZES.padding,
         }}
       >
+
         <View
           style={{
+            paddingVertical: windowHeight * 0.05,
+            paddingHorizontal: "10%",
             flex: 1,
-            alignItems: "center",
           }}
         >
           <Image
             style={{
               width: SIZES.width * 0.6,
               height: SIZES.height * 0.3,
+              alignSelf:'center',
             }}
             resizeMode="contain"
             source={ICONS.APP_LOGO_ICON}
           ></Image>
-          <View
+          <Text
             style={{
-              height: 100,
-              justifyContent: "center",
-              marginRight: 100,
-              position: "relative",
+              color: COLORS.black,
+              fontSize: 30,
+              fontWeight: "600",
+              marginLeft: 20,
+              // marginTop: 70,
             }}
           >
+            Enter OTP
+          </Text>
           <Text
-              style={{
-                color: COLORS.black,
-                fontSize: 30,
-                fontWeight: '600',
-                marginLeft: 30,
-                marginTop: 60,
-              }}>
-              Enter OTP
-            </Text>
+            style={{
+              color: COLORS.black,
+              fontSize: 15,
+              fontWeight: "200",
+              marginLeft: 20,
+            }}
+          >
+            We have sent OTP to your number
+          </Text>
+          <View style={styles.otpContainer}>
+            <OtpInputs
+              numberOfInputs={6}
+              handleChange={(code) => {
+                console.log(code);
+                setOtp(code);
+              }}
+              inputContainerStyles={styles.inputContainer}
+              focusStyles={styles.inputContainerFocused}
+              inputStyles={styles.inputStyle}
+              selectionColor={COLORS.white}
+              autofillFromClipboard={false}
+            />
+          </View>
+          <Text
+            style={{
+              marginTop: "10%",
+              textAlign: "center",
+              fontSize: 13,
+              color: COLORS.black,
+              fontWeight: "200",
+            }}
+          >
+            Haven't got the OTP yet?
+            {timeLeft != 0 ? ` in ${timeLeft} sec` : ""}
+          </Text>
+          <TouchableOpacity
+            disabled={timeLeft != 0}
+            // onPress={resendOTPApiCall}
+            onPress={() => {
+              setTimeLeft(60);
+            }}
+            style={{
+              alignItems: "flex-end",
+              alignSelf: "center",
+            }}
+          >
             <Text
               style={{
-                color: COLORS.black,
-                fontSize: 15,
-                fontWeight: '200',
-                marginLeft: 30,
-              }}>
-              We have sent OTP to your number
+                marginTop: "3%",
+                fontWeight: "600",
+                color: COLORS.primary,
+              }}
+            >
+              {" "}
+              Resend OTP
             </Text>
-          </View>
-               <View style={{
-                marginTop: 60,
-                 marginBottom: 20,
-    // margin:60,
-    padding: 20,
-    // backgroundColor:'red',
-    // ...SHADOW,
-               }}>
-              <OtpInputs
-                numberOfInputs={4}
-                handleChange={code => {
-                  console.log(code);
-                  setOtp(code);
-                }}
-                inputContainerStyles={{
-                  width: 50,
-    height: 50,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: COLORS.gray,
-    alignItems: 'center',
-    justifyContent: 'center',
-                }}
-                focusStyles={{
-                  borderColor: COLORS.primary,
-                }}
-                inputStyles={{
-                    fontSize: 20,
-                    fontWeight: '400',
-                    color: COLORS.black,
-                    textAlign: 'center',
-                }}
-                selectionColor={COLORS.primary}
-                autofillFromClipboard={false}
-              />
-            </View>
-          
+          </TouchableOpacity>
           <CustomButton
             style={{
               width: SIZES.width * 0.8,
             }}
             title={"Continue"}
-            onPress={() => {
-              navigation.navigate("OTP" as never);
-            }}
+            onPress={handleOTP}
           />
-
-          <Text
-            style={{
-              fontSize: 10,
-              marginTop: 30,
-              color: COLORS.black,
-            }}
-          >
-            Or Login with
-          </Text>
-          <View
-            style={{
-              flexDirection: "row",
-              flex: 1,
-              justifyContent: "space-between",
-              gap: 20,
-              marginTop: 10,
-            }}
-          >
-            <Image
-              style={{
-                width: 20,
-                height: 20,
-              }}
-              resizeMode="contain"
-              source={ICONS.GOOGLE}
-            ></Image>
-            <Image
-              style={{
-                width: 20,
-                height: 20,
-              }}
-              resizeMode="contain"
-              source={ICONS.APPLE}
-            ></Image>
-            <Image
-              style={{
-                width: 20,
-                height: 20,
-              }}
-              resizeMode="contain"
-              source={ICONS.FACEBOOK}
-            ></Image>
-          </View>
         </View>
       </LinearGradient>
     </KeyboardAvoidingView>
@@ -170,4 +250,34 @@ const OtpScreen = () => {
 
 export default OtpScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  otpContainer: {
+    marginTop: 40,
+    marginBottom: 20,
+    // margin:2,
+    // gap:10,
+    padding: 10,
+    // backgroundColor:'red',
+    // ...SHADOW,
+  },
+  inputContainer: {
+    width: 40,
+    height: 45,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: COLORS.black,
+    backgroundColor:COLORS.white,
+    alignItems: "center",
+    justifyContent: "center",
+    ...SHADOW
+  },
+  inputContainerFocused: {
+    borderColor: COLORS.white,
+  },
+  inputStyle: {
+    fontSize: 20,
+    fontWeight: "400",
+    color: COLORS.black,
+    textAlign: "center",
+  },
+});

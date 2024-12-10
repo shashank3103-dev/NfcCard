@@ -1,9 +1,8 @@
-import React from 'react';
-import {LogBox, StyleSheet} from 'react-native';
-import RootNavigation from '../nfc/src/navigation/RootNavigation'; // Root navigation system
-import {Provider} from 'react-redux';
-import { store } from './src/stateManagement/Store';
-// import {store} from './src/stateManagement/store'; 
+import React from "react";
+import { LogBox, StyleSheet } from "react-native";
+import { Provider } from "react-redux";
+import { store } from "./src/stateManagement/Store";
+import RootNavigation from "./src/navigation/RootNavigation";
 
 const App = () => {
   LogBox.ignoreAllLogs();

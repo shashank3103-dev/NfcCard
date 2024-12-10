@@ -1,8 +1,9 @@
-interface PhoneRequestBody {
-  phoneNumber: string;
+interface emailRequestBody {
+  email: string;
 }
 interface VerifyOtpRequestBody {
-  otp: string;
+  email:string;
+  otp_code: string;
 }
 
-export type {PhoneRequestBody, VerifyOtpRequestBody};
+export type {emailRequestBody, VerifyOtpRequestBody};

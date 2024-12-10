@@ -1,6 +1,6 @@
 import URLService from './URLServices';
 import {EndPoints, baseUrl} from '../resources/Constants';
-import {PhoneRequestBody, VerifyOtpRequestBody} from './Modals';
+import {emailRequestBody, VerifyOtpRequestBody} from './Modals';
 
 
 export default class URLManager {
@@ -12,17 +12,17 @@ export default class URLManager {
       .fetchAsyncData(urlPath, data, 'GET')
       .then((res: any) => res);
   }
-  phoneLogin(data: PhoneRequestBody) {
+  userEmailLogin(data: emailRequestBody) {
     let urlService = new URLService();
-    let urlPath = baseUrl + EndPoints.PHONELOGIN;
+    let urlPath = baseUrl + EndPoints.EMAIL_LOGIN;
     console.log(urlPath);
     return urlService
       .fetchAsyncData(urlPath, data, 'POST')
       .then((res: any) => res);
   }
-  verifyOTP(data: VerifyOtpRequestBody, userId: string) {
+  verifyOTP(data: VerifyOtpRequestBody) {
     let urlService = new URLService();
-    let urlPath = baseUrl + EndPoints.VERIFY_OTP + userId;
+    let urlPath = baseUrl + EndPoints.VERIFY_OTP;
     console.log(urlPath);
     return urlService
       .fetchAsyncData(urlPath, data, 'POST')
