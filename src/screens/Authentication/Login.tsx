@@ -45,7 +45,7 @@ const Login = () => {
         .then((res) => {
           if (!res.error) {
             console.log(res);
-            navigation.navigate("OTP", { email: email, ...res });
+            navigation.navigate('OTP', { email: email, ...res });
           } else {
             if (res.error == "Failed to send OTP")
               Alert.alert("Error", res.error);
@@ -70,15 +70,12 @@ const Login = () => {
       return false;
     }
     console.log(!isEmailAddress(email));
-    if (isEmailAddress(email)) {
-      if (isValidEmail(email)) {
-        return true;
-      } else {
-        Alert.alert("Error", "Please enter a valid email address.");
-        return false;
-      }
+    if (!isValidEmail(email)) {
+      Alert.alert("Error", "Please enter a valid email address.");
+      return false;
     }
-  }
+    return true;
+  };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView
@@ -133,7 +130,7 @@ const Login = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  Mobile Number
+                  Email Address
                 </Text>
               </View>
               <View
