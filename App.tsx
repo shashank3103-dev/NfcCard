@@ -9,9 +9,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      {/* SafeAreaView ensures content is displayed within safe areas */}
       <SafeAreaView style={styles.container}>
-        {/* StatusBar for customizing the status bar appearance */}
         <StatusBar 
          translucent
           barStyle="dark-content" // Options: 'default', 'light-content', 'dark-content'
