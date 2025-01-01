@@ -1,246 +1,267 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
+import React from "react";
+import LinearGradient from "react-native-linear-gradient";
+import { COLORS, FONTS, SIZES } from "../../resources/Theme";
+import CommonHeader from "../../components/CommonHeader";
+// import { Image } from "react-native-reanimated/lib/typescript/Animated";
+import { ICONS } from "../../resources";
+import ServicesCard from "../../components/homeComponent/ServicesCard";
+import SearchByIndustryCard from "../../components/homeComponent/SearchByIndustryCard";
+import PremiumProductsCard from "../../components/homeComponent/PremiumProductsCard";
 
 const HomeScreen = () => {
   return (
-    <View style={{
+    <SafeAreaView
+      style={{
         flex: 1,
-        backgroundColor:'red',
-    }}>
-      <Text>HomeScreen</Text>
-    </View>
-  )
-}
+      }}
+    >
+    
+        <CommonHeader title={""} />
+        <LinearGradient
+          colors={["#FFF8DE", "#FFFF", "#FFF8DE"]} // Define your gradient colors here
+          style={{
+            flex: 1,
+          }}
+        >
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <View>
+            <Image
+              style={{
+                width: "100%",
+                height: 130,
+              }}
+              resizeMode="contain"
+              source={ICONS.BANNER}
+            ></Image>
+          </View>
+          <View>
+            <Text
+              style={{
+                ...FONTS.body4,
+                color: COLORS.black,
+                fontWeight: "700",
+                marginHorizontal: "4%",
+              }}
+            >
+              Services
+            </Text>
+            <Text
+              style={{
+                ...FONTS.body6,
+                color: COLORS.black,
+                fontWeight: "400",
+                marginHorizontal: "4%",
+              }}
+            >
+              Select from various services
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                backgroundColor: COLORS.homeGray,
+                flex: 1,
+              }}
+            >
+              <FlatList
+                data={[
+                  {
+                    id: 1,
+                    price: 30,
+                    name: "NFC Business Cards with Vcard",
+                    imageSource: ICONS.VCARD,
+                    off: "1000",
+                  },
+                  {
+                    id: 2,
+                    price: 50,
+                    name: "NFC Business Cards Micro Web Page",
+                    imageSource: ICONS.BUSINESS_CARD,
+                    off: "5000",
+                  },
+                  {
+                    id: 3,
+                    price: 221,
+                    name: "NFC Menu and Catalogue Cards",
+                    imageSource: ICONS.CATALOG,
+                    off: "4000",
+                  },
+                  {
+                    id: 4,
+                    price: 221,
+                    name: "NFC Pet Locks",
+                    imageSource: ICONS.KEYCHAIN,
+                    off: "3000",
+                  },
+                ]}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                renderItem={({ item }) => (
+                  <TouchableOpacity activeOpacity={1}>
+                    <ServicesCard
+                      name={item.name}
+                      price={item.price}
+                      off={item.off}
+                      imageSource={item.imageSource}
+                    />
+                  </TouchableOpacity>
+                )}
+              />
+            </View>
+          </View>
 
-export default HomeScreen
+          <Text
+            style={{
+              ...FONTS.body4,
+              color: COLORS.black,
+              fontWeight: "700",
+              marginHorizontal: "4%",
+              marginVertical: "2%",
+            }}
+          >
+            Search By Industry
+          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              backgroundColor: COLORS.homeGray,
+              flex: 1,
+            }}
+          >
+            <FlatList
+              data={[
+                {
+                  id: 1,
+                  price: 30,
+                  name: "Writing & Editing",
+                  imageSource: ICONS.WRITING,
+                  off: "1000",
+                },
+                {
+                  id: 2,
+                  price: 50,
+                  name: "Photography",
+                  imageSource: ICONS.PHOTOGRAPHY,
+                  off: "5000",
+                },
+                {
+                  id: 3,
+                  price: 221,
+                  name: "Clothing",
+                  imageSource: ICONS.BUSINESS_CARD,
+                  off: "4000",
+                },
+                {
+                  id: 4,
+                  price: 221,
+                  name: "Travel Agencies ",
+                  imageSource: ICONS.CATALOG,
+                  off: "3000",
+                },
+              ]}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item }) => (
+                <TouchableOpacity activeOpacity={1}>
+                  <SearchByIndustryCard
+                    name={item.name}
+                    price={item.price}
+                    off={item.off}
+                    imageSource={item.imageSource}
+                  />
+                </TouchableOpacity>
+              )}
+            />
+          </View>
+          <Text
+            style={{
+              ...FONTS.body4,
+              color: COLORS.black,
+              fontWeight: "700",
+              marginHorizontal: "4%",
+              marginVertical: "2%",
+            }}
+          >
+            Premium Products
+          </Text>
+          <Text
+            style={{
+              ...FONTS.body6,
+              color: COLORS.black,
+              fontWeight: "400",
+              marginHorizontal: "4%",
+              marginTop:-10,
+              marginVertical: "2%",
+              
+            }}
+          >
+            Take a look on the premium collection of NFC cards
+          </Text>
+          <View style={{
+              flexDirection: "row",
+              flex: 1,
+          }}>
+           <FlatList
+              data={[
+                {
+                  id: 1,
+                  price: 1000.00,
+                  name: "Writing & Editing",
+                  imageSource: ICONS.PHOTOGRAPHY,
+                  off: "1000",
+                },
+                {
+                  id: 2,
+                  price: 2000.00,
+                  name: "Photography",
+                  imageSource: ICONS.BUSINESS_CARD,
+                  off: "5000",
+                },
+                {
+                  id: 3,
+                  price: 3000.00,
+                  name: "Clothing",
+                  imageSource: ICONS.PREMIUM,
+                  off: "4000",
+                },
+                {
+                  id: 4,
+                  price: 5000.00,
+                  name: "Travel Agencies ",
+                  imageSource: ICONS.CATALOG,
+                  off: "3000",
+                },
+              ]}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item }) => (
+                <TouchableOpacity activeOpacity={1}>
+                  <PremiumProductsCard
+                    name={item.name}
+                    price={item.price}
+                    off={item.off}
+                    imageSource={item.imageSource}
+                  />
+                </TouchableOpacity>
+              )}
+            />
+          </View>
+          </ScrollView>
+        </LinearGradient>
+     
+    </SafeAreaView>
+  );
+};
 
-const styles = StyleSheet.create({})
+export default HomeScreen;
 
-
-// import React, { useState, useRef } from "react";
-// import {
-//   View,
-//   Text,
-//   TextInput,
-//   TouchableOpacity,
-//   StyleSheet,
-//   Dimensions,
-//   PanResponder,
-// } from "react-native";
-// import Svg, { Text as SvgText } from "react-native-svg";
-// import { ColorPicker } from "react-native-color-picker";
-
-// const EditableCanvas = () => {
-//   const { width: screenWidth } = Dimensions.get("window");
-//   const canvasHeight = 400;
-
-//   const [textItems, setTextItems] = useState([
-//     {
-//       id: 1,
-//       text: "Editable Text",
-//       x: 50,
-//       y: 100,
-//       fontSize: 20,
-//       color: "#000000",
-//     },
-//   ]);
-
-//   const [selectedTextId, setSelectedTextId] = useState<number | null>(null);
-//   const [colorPickerVisible, setColorPickerVisible] = useState(false);
-
-//   const panResponderRef = useRef(
-//     PanResponder.create({
-//       onStartShouldSetPanResponder: () => true,
-//       onMoveShouldSetPanResponder: () => true,
-//       onPanResponderMove: (event, gestureState) => {
-//         if (selectedTextId !== null) {
-//           setTextItems((prevItems) =>
-//             prevItems.map((item) =>
-//               item.id === selectedTextId
-//                 ? {
-//                     ...item,
-//                     x: Math.max(0, Math.min(screenWidth - 40, item.x + gestureState.dx)),
-//                     y: Math.max(0, Math.min(canvasHeight, item.y + gestureState.dy)),
-//                   }
-//                 : item
-//             )
-//           );
-//         }
-//       },
-//       onPanResponderRelease: () => {
-//         // Reset any necessary states when dragging ends
-//       },
-//     })
-//   ).current;
-
-//   const handleAddText = () => {
-//     const newTextItem = {
-//       id: Date.now(),
-//       text: "New Text",
-//       x: 50,
-//       y: 50,
-//       fontSize: 20,
-//       color: "#000000",
-//     };
-//     setTextItems([...textItems, newTextItem]);
-//     setSelectedTextId(newTextItem.id);
-//   };
-
-//   const handleDeleteText = () => {
-//     if (selectedTextId !== null) {
-//       setTextItems(textItems.filter((item) => item.id !== selectedTextId));
-//       setSelectedTextId(null);
-//     }
-//   };
-
-//   const updateTextProperty = (property: string, value: any) => {
-//     if (selectedTextId !== null) {
-//       setTextItems(
-//         textItems.map((item) =>
-//           item.id === selectedTextId ? { ...item, [property]: value } : item
-//         )
-//       );
-//     }
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <Svg
-//         width={screenWidth - 40}
-//         height={canvasHeight}
-//         style={styles.svgCanvas}
-//         {...panResponderRef.panHandlers}
-//         onTouchStart={(e) => {
-//           const { locationX, locationY } = e.nativeEvent;
-//           const tappedItem = textItems.find(
-//             (item) =>
-//               locationX >= item.x - 50 &&
-//               locationX <= item.x + 100 &&
-//               locationY >= item.y - 30 &&
-//               locationY <= item.y + 30
-//           );
-//           if (tappedItem) {
-//             setSelectedTextId(tappedItem.id);
-//           } else {
-//             setSelectedTextId(null);
-//           }
-//         }}
-//       >
-//         {textItems.map((item) => (
-//           <SvgText
-//             key={item.id}
-//             x={item.x}
-//             y={item.y}
-//             fontSize={item.fontSize}
-//             fill={item.color}
-//             textAnchor="middle"
-//           >
-//             {item.text}
-//           </SvgText>
-//         ))}
-//       </Svg>
-
-//       {selectedTextId !== null && (
-//         <View style={styles.editor}>
-//           <TextInput
-//             style={styles.input}
-//             placeholder="Edit text"
-//             value={textItems.find((item) => item.id === selectedTextId)?.text}
-//             onChangeText={(text) => updateTextProperty("text", text)}
-//           />
-
-//           <View style={styles.row}>
-//             <TouchableOpacity
-//               style={styles.button}
-//               onPress={() => setColorPickerVisible(true)}
-//             >
-//               <Text style={styles.buttonText}>Change Color</Text>
-//             </TouchableOpacity>
-//             <TouchableOpacity
-//               style={styles.button}
-//               onPress={() => updateTextProperty("fontSize", 24)}
-//             >
-//               <Text style={styles.buttonText}>Increase Size</Text>
-//             </TouchableOpacity>
-//             <TouchableOpacity
-//               style={styles.button}
-//               onPress={() => updateTextProperty("fontSize", 16)}
-//             >
-//               <Text style={styles.buttonText}>Decrease Size</Text>
-//             </TouchableOpacity>
-//           </View>
-//         </View>
-//       )}
-
-//       <View style={styles.toolbar}>
-//         <TouchableOpacity style={styles.button} onPress={handleAddText}>
-//           <Text style={styles.buttonText}>Add Text</Text>
-//         </TouchableOpacity>
-
-//         <TouchableOpacity style={styles.button} onPress={handleDeleteText}>
-//           <Text style={styles.buttonText}>Delete Text</Text>
-//         </TouchableOpacity>
-//       </View>
-
-//       {colorPickerVisible && (
-//         <ColorPicker
-//           onColorSelected={(color) => {
-//             updateTextProperty("color", color);
-//             setColorPickerVisible(false);
-//           }}
-//           style={styles.colorPicker}
-//         />
-//       )}
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     padding: 20,
-//     backgroundColor: "#f5f5f5",
-//   },
-//   svgCanvas: {
-//     backgroundColor: "#fff",
-//     borderWidth: 1,
-//     borderColor: "#ddd",
-//     borderRadius: 10,
-//     marginBottom: 20,
-//   },
-//   input: {
-//     borderWidth: 1,
-//     borderColor: "#ddd",
-//     padding: 10,
-//     borderRadius: 5,
-//     marginBottom: 10,
-//     backgroundColor: "#fff",
-//   },
-//   editor: {
-//     marginBottom: 20,
-//   },
-//   toolbar: {
-//     flexDirection: "row",
-//     justifyContent: "space-between",
-//   },
-//   row: {
-//     flexDirection: "row",
-//     justifyContent: "space-between",
-//     marginVertical: 10,
-//   },
-//   button: {
-//     backgroundColor: "#007BFF",
-//     padding: 10,
-//     borderRadius: 5,
-//     marginRight: 10,
-//   },
-//   buttonText: {
-//     color: "#fff",
-//     fontWeight: "bold",
-//   },
-//   colorPicker: {
-//     height: 300,
-//   },
-// });
-
-// export default EditableCanvas;
+const styles = StyleSheet.create({});

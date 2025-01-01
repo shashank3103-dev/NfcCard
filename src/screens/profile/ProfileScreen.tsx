@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const BottamTab = () => {
+const ProfileScreen = () => {
   return (
     <View>
-      <Text>BottamTab</Text>
+      <Text>ProfileScreen</Text>
     </View>
   )
 }
 
-export default BottamTab
+export default ProfileScreen
 
 const styles = StyleSheet.create({})

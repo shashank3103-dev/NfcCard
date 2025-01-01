@@ -28,7 +28,7 @@ const OtpScreen = ({ navigation, route }: any) => {
   const [timeLeft, setTimeLeft] = useState(45);
   const [userId, setUserId] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const [confirmedOtp, setconfirmedOtp] = useState<string>("");
+  const [confirmedOtp, setConfirmedOtp] = useState<string>("");
 
   useEffect(() => {
     if (timeLeft === 0) return;
@@ -42,7 +42,7 @@ const OtpScreen = ({ navigation, route }: any) => {
   useEffect(() => {
     if (route?.params?.data) {
       console.log(route.params);
-      setconfirmedOtp(route.params?.data?.otp);
+      setConfirmedOtp(route.params?.data?.otp);
       setUserId(route.params?.data?.user_id);
     }
   }, [route.params]);
@@ -197,7 +197,10 @@ const OtpScreen = ({ navigation, route }: any) => {
               width: SIZES.width * 0.8,
             }}
             title={"Continue"}
-            onPress={handleOTP}
+            // onPress={handleOTP}
+            onPress={()=>{
+              navigation.navigate('BottomTab')
+            }}
            
           />
         </View>

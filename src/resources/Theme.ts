@@ -10,13 +10,14 @@ export const COLORS = {
   lightGray: '#D2D2D2',
   lightGray1: '#999898',
   darkGray: '#A8A8A9',
-
+  bottomTabColor: '#FBFBFB',
   unSelectedGray: '#C0C0C0',
+ homeGray: '#F0F0F0',
   primary: '#FFCD21',
-  fadePrimary:'#FFE47A',
+  fadePrimary: '#FFE47A',
   secondary: '#EFEFEF',
-  Linearfirst: '#FFFFFF',
-  Linearsecond: '#FFCD21',
+  LinearFirst: '#FFFFFF',
+  LinearSecond: '#FFCD21',
 };
 export const SIZES = {
   // global sizes
@@ -53,6 +54,27 @@ export const SHADOW = {
   elevation: 1,
 };
 
+export const SHADOW_RIGHT = {
+  shadowColor: '#000', // Shadow color
+  shadowOffset: {
+    width: 5, // Positive value to move shadow to the right
+    height: 0, // No vertical shadow
+  },
+  shadowOpacity: 0.3, // Opacity of the shadow
+  shadowRadius: 3, // Blurriness of the shadow
+  elevation: 5, // For Android, creates shadow depth
+};
+
+export const SHADOW_BOTTOM_TAB = {
+  shadowColor: '#000',
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 1.84,
+  elevation: 10,
+};
 export const SHADOW_BLUE = {
   shadowColor: COLORS.primary,
   shadowOffset: {
@@ -62,6 +84,7 @@ export const SHADOW_BLUE = {
   shadowOpacity: 0.25,
   shadowRadius: 3.84,
   elevation: 5,
+
 };
 export const FONTS = {
   h1: {fontFamily: 'Roboto-Medium', fontSize: SIZES.h1, lineHeight: 36},
@@ -76,6 +99,14 @@ export const FONTS = {
   body6: {fontFamily: 'Roboto-Regular', fontSize: SIZES.body6, lineHeight: 18},
 };
 
-const appTheme = {COLORS, SIZES, FONTS, SHADOW, SHADOW_BLUE};
+const appTheme = {
+  COLORS,
+  SIZES,
+  FONTS,
+  SHADOW,
+  SHADOW_BLUE,
+  SHADOW_BOTTOM_TAB,
+  SHADOW_RIGHT,
+};
 
 export default appTheme;

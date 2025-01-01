@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { COLORS, ICONS, SIZES, FONTS } from "../resources";
+import { COLORS, ICONS, SIZES, FONTS, SHADOW_BLUE, SHADOW } from "../resources";
 import { useNavigation } from "@react-navigation/native";
 interface CommonHeader {
   title: string;
@@ -20,22 +20,24 @@ const CommonHeader = (props: CommonHeader) => {
       style={{
         height:
           Platform.OS == "ios" ? SIZES.height * 0.11 : SIZES.height * 0.08,
-        backgroundColor: COLORS.primary,
+        backgroundColor: '#FCD200',
         paddingHorizontal: "5%",
         paddingTop: Platform.OS == "ios" ? "7%" : "0%",
         flexDirection: "row",
+        alignItems:'center',
+        // ...SHADOW
       }}
     >
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();
         }}
-        style={{ marginTop: "8%" }}
+        style={{}}
       >
         <Image
           resizeMode="contain"
-          style={{ height: 16, width: 16 }}
-          source={ICONS.BACK_ICON}
+          style={{ height: 30, width: 30 }}
+          source={ICONS.DRAWER}
         />
       </TouchableOpacity>
       <Text

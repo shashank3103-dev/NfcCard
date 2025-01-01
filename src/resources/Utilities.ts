@@ -29,7 +29,7 @@ export const setDataInStorage = async (key: string, value: any) => {
     console.error('Error saving data in AsyncStorage:', error);
   }
 };
-export const getDataFromEncriptedStorage = async (key: string) => {
+export const getDataFromEncryptedStorage = async (key: string) => {
   try {
     const value = await EncryptedStorage.getItem(key);
     if (value !== null) {

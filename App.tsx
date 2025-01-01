@@ -9,14 +9,14 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <SafeAreaView style={styles.container}>
+      {/* <SafeAreaView style={styles.container}>
         <StatusBar 
          translucent
           barStyle="dark-content" // Options: 'default', 'light-content', 'dark-content'
           backgroundColor="transparent" // Customize as per your theme
-        />
+        /> */}
         <RootNavigation />
-      </SafeAreaView>
+      {/* </SafeAreaView> */}
     </Provider>
   );
 };
