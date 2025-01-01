@@ -17,7 +17,25 @@ const KEYCHAIN = require('../assets/keychain.png');
 const WRITING = require('../assets/writing.png');
 const PHOTOGRAPHY = require('../assets/photography.png');
 const PREMIUM = require('../assets/varient.png');
+const ABOUT = require('../assets/about.png');
+const ADDRESS = require('../assets/address.png');
+const ARROW = require('../assets/Arrow.png');
+const HELP_SUPPORT = require('../assets/helpsupport.png');
+const HISTORY = require('../assets/history.png');
+const LOGOUT = require('../assets/history.png');
+const PAYMENT_METHOD = require('../assets/paymentMethod.png');
+const PERSONAL_DETAILS = require('../assets/personalDetails.png');
+const PROFILE_ICON = require('../assets/profile.png');
 export {
+        ABOUT,
+        ADDRESS,
+        ARROW,
+        HELP_SUPPORT,
+        HISTORY,
+        LOGOUT,
+        PAYMENT_METHOD,
+        PERSONAL_DETAILS,
+        PROFILE_ICON,
         PREMIUM,
         WRITING,
         PHOTOGRAPHY,

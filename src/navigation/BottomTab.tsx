@@ -15,6 +15,7 @@ import ShopNavigation from "./ShopNavigation";
 import CartScreen from "../screens/cartscreen/CartScreen";
 import ProfileScreen from "../screens/profile/ProfileScreen";
 import { SHADOW_BOTTOM_TAB } from "../resources/Theme";
+import ProfileNavigation from "./ProfileNavigation";
 function getIcons(routeName: string) {
   switch (routeName) {
     case "HomeScreen":
@@ -150,7 +151,7 @@ export default function BottomTab() {
       <Tab.Screen name="Home" component={HomeNavigation} />
       <Tab.Screen name="Shop" component={ShopNavigation} />
       <Tab.Screen name="Cart" component={CartScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Profile" component={ProfileNavigation} />
     </Tab.Navigator>
   );
 }
