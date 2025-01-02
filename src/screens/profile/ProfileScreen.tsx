@@ -11,12 +11,14 @@ import React from "react";
 import LinearGradient from "react-native-linear-gradient";
 import { COLORS, SIZES } from "../../resources/Theme";
 import { ICONS } from "../../resources";
+import { useNavigation } from "@react-navigation/native";
 
 const ProfileScreen = () => {
+    const navigation = useNavigation();
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient
-        colors={["#FFD02B", "#FFFFFF", "#FFF8DE"]} // Define your gradient colors here
+        colors={["#FFD02B","#FFFFFF" ,"#FFFFFF", "#FFF8DE"]} // Define your gradient colors here
         style={{
           flex: 1,
           // padding: SIZES.padding,
@@ -105,7 +107,7 @@ const ProfileScreen = () => {
               ></Image>
             </View>
           </View>
-          <View
+          <TouchableOpacity
             style={{
               width: SIZES.width * 0.8,
               height: 30,
@@ -114,8 +116,11 @@ const ProfileScreen = () => {
               // backgroundColor: "green",
               marginTop:20,
             }}
+            onPress={()=>
+              navigation.navigate('PersonalDetails' as never)
+            }
           >
-            <TouchableOpacity
+            <View
               style={{
                 width: 30,
                 height: 30,
@@ -124,7 +129,7 @@ const ProfileScreen = () => {
                 alignItems: "center",
                 justifyContent: "center",
               }}
-              onPress={()=>{}}
+             
             >
               <Image
                 style={{
@@ -134,7 +139,7 @@ const ProfileScreen = () => {
                 resizeMode="contain"
                 source={ICONS.PERSONAL_DETAILS}
               ></Image>
-            </TouchableOpacity>
+            </View>
             <View
               style={{
                 width: SIZES.width * 0.65,
@@ -163,7 +168,7 @@ const ProfileScreen = () => {
                 source={ICONS.ARROW}
               ></Image>
             </View>
-          </View>
+          </TouchableOpacity>
           <View
             style={{
               width: SIZES.width * 0.8,

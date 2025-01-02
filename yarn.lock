@@ -7480,6 +7480,7 @@ __metadata:
     react-native: 0.76.3
     react-native-canvas: ^0.1.40
     react-native-color-picker: ^0.6.0
+    react-native-element-dropdown: ^2.12.2
     react-native-encrypted-storage: ^4.0.3
     react-native-gesture-handler: ^2.21.2
     react-native-linear-gradient: ^2.8.3
@@ -8204,6 +8205,18 @@ __metadata:
     react-native-gesture-handler: ">= 2.0.0"
     react-native-reanimated: ">= 2.0.0"
   checksum: 02366958e92f6d1ff6746cb1f85803e460235604ccf4970daebdc217f994b716d0334f361d1f087fac976d5e2beebfe8d17b6bc13e6236538d2dbd8d25226465
+  languageName: node
+  linkType: hard
+
+"react-native-element-dropdown@npm:^2.12.2":
+  version: 2.12.2
+  resolution: "react-native-element-dropdown@npm:2.12.2"
+  dependencies:
+    lodash: ^4.17.21
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 5ed1d909d04f8adb693f382618adcb5878233ae7ca4f94225a789223aca94abd5b56239a19d9c8d3099161c8aaf4d398fdfd54c52815a40a52b3a3dd1e70c698
   languageName: node
   linkType: hard
 
