@@ -1,6 +1,6 @@
 import URLService from './URLServices';
 import {EndPoints, baseUrl} from '../resources/Constants';
-import {emailRequestBody, VerifyOtpRequestBody} from './Modals';
+import {emailRequestBody, refreshTokenBody, VerifyOtpRequestBody} from './Modals';
 
 
 export default class URLManager {
@@ -44,36 +44,20 @@ export default class URLManager {
       .fetchAsyncData(urlPath, userDetail, 'PUT')
       .then((res: any) => res);
   }
-  uploadProfileImage(userDetail: any) {
+  refreshAccessToken(data: refreshTokenBody) {
     let urlService = new URLService();
-    let urlPath = baseUrl + EndPoints.UPLOAD_USER_IMAGE;
-    console.log(urlPath);
-    return urlService
-      .fetchAsyncData(urlPath, userDetail, 'POST')
-      .then((res: any) => res);
-  }
-  completeKYC(userDetail: any) {
-    let urlService = new URLService();
-    let urlPath = baseUrl + EndPoints.COMPLETE_KYC;
-    console.log(urlPath);
-    return urlService
-      .fetchAsyncData(urlPath, userDetail, 'POST')
-      .then((res: any) => res);
-  }
-  updateEmail(userDetail: any) {
-    let urlService = new URLService();
-    let urlPath = baseUrl + EndPoints.ADD_EMAIL;
-    console.log(urlPath);
-    return urlService
-      .fetchAsyncData(urlPath, userDetail, 'POST')
-      .then((res: any) => res);
-  }
-  verifyEmailOTP(data: VerifyOtpRequestBody) {
-    let urlService = new URLService();
-    let urlPath = baseUrl + EndPoints.VERIFY_EMAIL_OTP;
+    let urlPath = baseUrl + EndPoints.REFRESH_ACCESS_TOKEN;
     console.log(urlPath);
     return urlService
       .fetchAsyncData(urlPath, data, 'POST')
+      .then((res: any) => res);
+  }
+  getAllServices() {
+    let urlService = new URLService();
+    let urlPath = baseUrl + EndPoints.GET_ALL_SERVICES;
+    console.log(urlPath);
+    return urlService
+      .fetchAsyncData(urlPath, {}, 'GET')
       .then((res: any) => res);
   }
 }

@@ -11,7 +11,7 @@ import React, { useState } from "react";
 import LinearGradient from "react-native-linear-gradient";
 import { COLORS, SIZES } from "../../resources/Theme";
 import { ICONS } from "../../resources";
-import { Dropdown } from "react-native-element-dropdown";
+// import { Dropdown } from "react-native-element-dropdown";
 import TextInputComponent from "../../components/TextInputComponent";
 import { GENDER } from "../../resources/Strings";
 
@@ -207,7 +207,7 @@ const PersonalDetails = () => {
                 onChangeText={(text) => setLocation(text)}
               />
             </View>
-                    <Dropdown
+                    {/* <Dropdown
           style={{
             width: SIZES.width * 0.8,
             paddingHorizontal: 10,
@@ -226,7 +226,8 @@ const PersonalDetails = () => {
           selectedTextStyle={{ color: COLORS.black, fontSize: 16 }}
           itemTextStyle={{ color: COLORS.gray }}
           onChange={(item) => setGender(item.value)}
-        />
+        /> */}
+        
 
           </View>
         </ScrollView>

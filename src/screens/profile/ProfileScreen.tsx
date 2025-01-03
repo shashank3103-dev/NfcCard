@@ -10,15 +10,13 @@ import {
 import React from "react";
 import LinearGradient from "react-native-linear-gradient";
 import { COLORS, SIZES } from "../../resources/Theme";
-import { ICONS } from "../../resources";
-import { useNavigation } from "@react-navigation/native";
+import { ICONS, UTILITIES } from "../../resources";
 
-const ProfileScreen = () => {
-    const navigation = useNavigation();
+const ProfileScreen = ({ navigation }: any) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient
-        colors={["#FFD02B","#FFFFFF" ,"#FFFFFF", "#FFF8DE"]} // Define your gradient colors here
+        colors={["#FFD02B", "#FFFFFF", "#FFFFFF", "#FFF8DE"]} // Define your gradient colors here
         style={{
           flex: 1,
           // padding: SIZES.padding,
@@ -30,7 +28,6 @@ const ProfileScreen = () => {
               alignItems: "center",
               justifyContent: "center",
               padding: SIZES.padding,
-            
             }}
           >
             <Text
@@ -48,418 +45,419 @@ const ProfileScreen = () => {
               resizeMode="contain"
               source={ICONS.PROFILE_ICON}
             ></Image>
-          
-          <View
-            style={{
-              width: SIZES.width * 0.8,
-              height: 30,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              // backgroundColor: "green",
-              marginTop:20,
-            }}
-          >
+
             <View
               style={{
-                width: 30,
-                height: 30,
-                borderRadius: 20,
-                backgroundColor: COLORS.gray,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Image
-                style={{
-                  width: 20,
-                  height: 20,
-                }}
-                resizeMode="contain"
-                source={ICONS.HISTORY}
-              ></Image>
-            </View>
-            <View
-              style={{
-                width: SIZES.width * 0.65,
+                width: SIZES.width * 0.8,
                 height: 30,
                 flexDirection: "row",
                 justifyContent: "space-between",
-                alignItems: "center",
-                // backgroundColor: "red",
+                // backgroundColor: "green",
+                marginTop: 20,
               }}
             >
-              <Text
+              <View
                 style={{
-                  fontSize: 16,
-                  color: COLORS.black,
-                  fontWeight: "400",
+                  width: 30,
+                  height: 30,
+                  borderRadius: 20,
+                  backgroundColor: COLORS.gray,
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                History
-              </Text>
-              <Image
+                <Image
+                  style={{
+                    width: 20,
+                    height: 20,
+                  }}
+                  resizeMode="contain"
+                  source={ICONS.HISTORY}
+                ></Image>
+              </View>
+              <View
                 style={{
-                  width: 15,
-                  height: 15,
+                  width: SIZES.width * 0.65,
+                  height: 30,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  // backgroundColor: "red",
                 }}
-                resizeMode="contain"
-                source={ICONS.ARROW}
-              ></Image>
+              >
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: COLORS.black,
+                    fontWeight: "400",
+                  }}
+                >
+                  History
+                </Text>
+                <Image
+                  style={{
+                    width: 15,
+                    height: 15,
+                  }}
+                  resizeMode="contain"
+                  source={ICONS.ARROW}
+                ></Image>
+              </View>
             </View>
-          </View>
-          <TouchableOpacity
-            style={{
-              width: SIZES.width * 0.8,
-              height: 30,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              // backgroundColor: "green",
-              marginTop:20,
-            }}
-            onPress={()=>
-              navigation.navigate('PersonalDetails' as never)
-            }
-          >
-            <View
+            <TouchableOpacity
               style={{
-                width: 30,
-                height: 30,
-                borderRadius: 20,
-                backgroundColor: COLORS.gray,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-             
-            >
-              <Image
-                style={{
-                  width: 20,
-                  height: 20,
-                }}
-                resizeMode="contain"
-                source={ICONS.PERSONAL_DETAILS}
-              ></Image>
-            </View>
-            <View
-              style={{
-                width: SIZES.width * 0.65,
+                width: SIZES.width * 0.8,
                 height: 30,
                 flexDirection: "row",
                 justifyContent: "space-between",
-                alignItems: "center",
-                // backgroundColor: "red",
+                // backgroundColor: "green",
+                marginTop: 20,
               }}
+              onPress={() => navigation.navigate("PersonalDetails" as never)}
             >
-              <Text
+              <View
                 style={{
-                  fontSize: 16,
-                  color: COLORS.black,
-                  fontWeight: "400",
+                  width: 30,
+                  height: 30,
+                  borderRadius: 20,
+                  backgroundColor: COLORS.gray,
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                Personal Details
-              </Text>
-              <Image
+                <Image
+                  style={{
+                    width: 20,
+                    height: 20,
+                  }}
+                  resizeMode="contain"
+                  source={ICONS.PERSONAL_DETAILS}
+                ></Image>
+              </View>
+              <View
                 style={{
-                  width: 15,
-                  height: 15,
+                  width: SIZES.width * 0.65,
+                  height: 30,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  // backgroundColor: "red",
                 }}
-                resizeMode="contain"
-                source={ICONS.ARROW}
-              ></Image>
-            </View>
-          </TouchableOpacity>
-          <View
-            style={{
-              width: SIZES.width * 0.8,
-              height: 30,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              // backgroundColor: "green",
-              marginTop:20,
-            }}
-          >
+              >
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: COLORS.black,
+                    fontWeight: "400",
+                  }}
+                >
+                  Personal Details
+                </Text>
+                <Image
+                  style={{
+                    width: 15,
+                    height: 15,
+                  }}
+                  resizeMode="contain"
+                  source={ICONS.ARROW}
+                ></Image>
+              </View>
+            </TouchableOpacity>
             <View
               style={{
-                width: 30,
-                height: 30,
-                borderRadius: 20,
-                backgroundColor: COLORS.gray,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Image
-                style={{
-                  width: 20,
-                  height: 20,
-                }}
-                resizeMode="contain"
-                source={ICONS.ADDRESS}
-              ></Image>
-            </View>
-            <View
-              style={{
-                width: SIZES.width * 0.65,
+                width: SIZES.width * 0.8,
                 height: 30,
                 flexDirection: "row",
                 justifyContent: "space-between",
-                alignItems: "center",
-                // backgroundColor: "red",
+                // backgroundColor: "green",
+                marginTop: 20,
               }}
             >
-              <Text
+              <View
                 style={{
-                  fontSize: 16,
-                  color: COLORS.black,
-                  fontWeight: "400",
+                  width: 30,
+                  height: 30,
+                  borderRadius: 20,
+                  backgroundColor: COLORS.gray,
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                Address
-              </Text>
-              <Image
+                <Image
+                  style={{
+                    width: 20,
+                    height: 20,
+                  }}
+                  resizeMode="contain"
+                  source={ICONS.ADDRESS}
+                ></Image>
+              </View>
+              <View
                 style={{
-                  width: 15,
-                  height: 15,
+                  width: SIZES.width * 0.65,
+                  height: 30,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  // backgroundColor: "red",
                 }}
-                resizeMode="contain"
-                source={ICONS.ARROW}
-              ></Image>
-            </View>
-          </View>
-          <View
-            style={{
-              width: SIZES.width * 0.8,
-              height: 30,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              // backgroundColor: "green",
-              marginTop:20,
-            }}
-          >
-            <View
-              style={{
-                width: 30,
-                height: 30,
-                borderRadius: 20,
-                backgroundColor: COLORS.gray,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Image
-                style={{
-                  width: 20,
-                  height: 20,
-                }}
-                resizeMode="contain"
-                source={ICONS.PAYMENT_METHOD}
-              ></Image>
+              >
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: COLORS.black,
+                    fontWeight: "400",
+                  }}
+                >
+                  Address
+                </Text>
+                <Image
+                  style={{
+                    width: 15,
+                    height: 15,
+                  }}
+                  resizeMode="contain"
+                  source={ICONS.ARROW}
+                ></Image>
+              </View>
             </View>
             <View
               style={{
-                width: SIZES.width * 0.65,
+                width: SIZES.width * 0.8,
                 height: 30,
                 flexDirection: "row",
                 justifyContent: "space-between",
-                alignItems: "center",
-                // backgroundColor: "red",
+                // backgroundColor: "green",
+                marginTop: 20,
               }}
             >
-              <Text
+              <View
                 style={{
-                  fontSize: 16,
-                  color: COLORS.black,
-                  fontWeight: "400",
+                  width: 30,
+                  height: 30,
+                  borderRadius: 20,
+                  backgroundColor: COLORS.gray,
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                Payment Method
-              </Text>
-              <Image
+                <Image
+                  style={{
+                    width: 20,
+                    height: 20,
+                  }}
+                  resizeMode="contain"
+                  source={ICONS.PAYMENT_METHOD}
+                ></Image>
+              </View>
+              <View
                 style={{
-                  width: 15,
-                  height: 15,
+                  width: SIZES.width * 0.65,
+                  height: 30,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  // backgroundColor: "red",
                 }}
-                resizeMode="contain"
-                source={ICONS.ARROW}
-              ></Image>
-            </View>
-          </View>
-          <View
-            style={{
-              width: SIZES.width * 0.8,
-              height: 30,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              // backgroundColor: "green",
-              marginTop:20,
-            }}
-          >
-            <View
-              style={{
-                width: 30,
-                height: 30,
-                borderRadius: 20,
-                backgroundColor: COLORS.gray,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Image
-                style={{
-                  width: 20,
-                  height: 20,
-                }}
-                resizeMode="contain"
-                source={ICONS.ABOUT}
-              ></Image>
+              >
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: COLORS.black,
+                    fontWeight: "400",
+                  }}
+                >
+                  Payment Method
+                </Text>
+                <Image
+                  style={{
+                    width: 15,
+                    height: 15,
+                  }}
+                  resizeMode="contain"
+                  source={ICONS.ARROW}
+                ></Image>
+              </View>
             </View>
             <View
               style={{
-                width: SIZES.width * 0.65,
+                width: SIZES.width * 0.8,
                 height: 30,
                 flexDirection: "row",
                 justifyContent: "space-between",
-                alignItems: "center",
-                // backgroundColor: "red",
+                // backgroundColor: "green",
+                marginTop: 20,
               }}
             >
-              <Text
+              <View
                 style={{
-                  fontSize: 16,
-                  color: COLORS.black,
-                  fontWeight: "400",
+                  width: 30,
+                  height: 30,
+                  borderRadius: 20,
+                  backgroundColor: COLORS.gray,
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                About
-              </Text>
-              <Image
+                <Image
+                  style={{
+                    width: 20,
+                    height: 20,
+                  }}
+                  resizeMode="contain"
+                  source={ICONS.ABOUT}
+                ></Image>
+              </View>
+              <View
                 style={{
-                  width: 15,
-                  height: 15,
+                  width: SIZES.width * 0.65,
+                  height: 30,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  // backgroundColor: "red",
                 }}
-                resizeMode="contain"
-                source={ICONS.ARROW}
-              ></Image>
-            </View>
-          </View>
-          <View
-            style={{
-              width: SIZES.width * 0.8,
-              height: 30,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              // backgroundColor: "green",
-              marginTop:20,
-            }}
-          >
-            <View
-              style={{
-                width: 30,
-                height: 30,
-                borderRadius: 20,
-                backgroundColor: COLORS.gray,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Image
-                style={{
-                  width: 20,
-                  height: 20,
-                }}
-                resizeMode="contain"
-                source={ICONS.HELP_SUPPORT}
-              ></Image>
+              >
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: COLORS.black,
+                    fontWeight: "400",
+                  }}
+                >
+                  About
+                </Text>
+                <Image
+                  style={{
+                    width: 15,
+                    height: 15,
+                  }}
+                  resizeMode="contain"
+                  source={ICONS.ARROW}
+                ></Image>
+              </View>
             </View>
             <View
               style={{
-                width: SIZES.width * 0.65,
+                width: SIZES.width * 0.8,
                 height: 30,
                 flexDirection: "row",
                 justifyContent: "space-between",
-                alignItems: "center",
-                // backgroundColor: "red",
+                // backgroundColor: "green",
+                marginTop: 20,
               }}
             >
-              <Text
+              <View
                 style={{
-                  fontSize: 16,
-                  color: COLORS.black,
-                  fontWeight: "400",
+                  width: 30,
+                  height: 30,
+                  borderRadius: 20,
+                  backgroundColor: COLORS.gray,
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                Help and Support
-              </Text>
-              <Image
+                <Image
+                  style={{
+                    width: 20,
+                    height: 20,
+                  }}
+                  resizeMode="contain"
+                  source={ICONS.HELP_SUPPORT}
+                ></Image>
+              </View>
+              <View
                 style={{
-                  width: 15,
-                  height: 15,
+                  width: SIZES.width * 0.65,
+                  height: 30,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  // backgroundColor: "red",
                 }}
-                resizeMode="contain"
-                source={ICONS.ARROW}
-              ></Image>
-            </View>
-          </View>
-          <View
-            style={{
-              width: SIZES.width * 0.8,
-              height: 30,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              // backgroundColor: "green",
-              marginTop:20,
-            }}
-          >
-            <View
-              style={{
-                width: 30,
-                height: 30,
-                borderRadius: 20,
-                backgroundColor: COLORS.gray,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Image
-                style={{
-                  width: 20,
-                  height: 20,
-                }}
-                resizeMode="contain"
-                source={ICONS.LOGOUT}
-              ></Image>
+              >
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: COLORS.black,
+                    fontWeight: "400",
+                  }}
+                >
+                  Help and Support
+                </Text>
+                <Image
+                  style={{
+                    width: 15,
+                    height: 15,
+                  }}
+                  resizeMode="contain"
+                  source={ICONS.ARROW}
+                ></Image>
+              </View>
             </View>
             <View
               style={{
-                width: SIZES.width * 0.65,
+                width: SIZES.width * 0.8,
                 height: 30,
                 flexDirection: "row",
                 justifyContent: "space-between",
-                alignItems: "center",
-                // backgroundColor: "red",
+                // backgroundColor: "green",
+                marginTop: 20,
               }}
             >
-              <Text
+              <View
                 style={{
-                  fontSize: 16,
-                  color: COLORS.black,
-                  fontWeight: "400",
+                  width: 30,
+                  height: 30,
+                  borderRadius: 20,
+                  backgroundColor: COLORS.gray,
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                Log out
-              </Text>
-              <Image
+                <Image
+                  style={{
+                    width: 20,
+                    height: 20,
+                  }}
+                  resizeMode="contain"
+                  source={ICONS.LOGOUT}
+                ></Image>
+              </View>
+              <TouchableOpacity
                 style={{
-                  width: 15,
-                  height: 15,
+                  width: SIZES.width * 0.65,
+                  height: 30,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  // backgroundColor: "red",
                 }}
-                resizeMode="contain"
-                source={ICONS.ARROW}
-              ></Image>
+                onPress={() => {
+                  UTILITIES.clearEncryptedStorage().then((res) => {
+                    navigation.replace("Login");
+                  });
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: COLORS.black,
+                    fontWeight: "400",
+                  }}
+                >
+                  Log out
+                </Text>
+                <Image
+                  style={{
+                    width: 15,
+                    height: 15,
+                  }}
+                  resizeMode="contain"
+                  source={ICONS.ARROW}
+                ></Image>
+              </TouchableOpacity>
             </View>
-          </View>
-          
           </View>
         </ScrollView>
       </LinearGradient>

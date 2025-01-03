@@ -9,7 +9,8 @@ export const kCLIENTVERSION = '1.2.1:' + platform;
 export const baseUrl = 'https://kashishpal6.pythonanywhere.com';
 // Used for async storage
 export const storageKeys = {
-  kTOKEN: 'token',
+  kACCESS_TOKEN: 'access_token',
+  kREFRESH_TOKEN: 'refresh_token',
   kEMAIL: 'email',
   kPASSWORD: 'password',
   kPROFILE_IMAGE: 'profileImage',
@@ -23,10 +24,8 @@ export const EndPoints = {
   VERIFY_OTP: '/user/verify-otp/',
   GET_USER_DETAIL: '/getUserDetail',
   UPDATE_USER_DETAIL: '/updateUser',
-  UPLOAD_USER_IMAGE: '/uploadProfileImage',
-  COMPLETE_KYC: '/kycComplete',
-  ADD_EMAIL: '/addEmail',
-  VERIFY_EMAIL_OTP: '/verifyEmailOTP',
+  REFRESH_ACCESS_TOKEN: '/user/token/refresh/',
+  GET_ALL_SERVICES: '/services/listServices/',
 };
 
 export default {

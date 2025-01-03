@@ -25,15 +25,14 @@ const HomeScreen = () => {
         flex: 1,
       }}
     >
-    
-        <CommonHeader title={""} />
-        <LinearGradient
-          colors={["#FFF8DE", "#FFFF", "#FFF8DE"]} // Define your gradient colors here
-          style={{
-            flex: 1,
-          }}
-        >
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <CommonHeader title={""} />
+      <LinearGradient
+        colors={["#FFF8DE", "#FFFF", "#FFF8DE"]} // Define your gradient colors here
+        style={{
+          flex: 1,
+        }}
+      >
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <View>
             <Image
               style={{
@@ -199,43 +198,44 @@ const HomeScreen = () => {
               color: COLORS.black,
               fontWeight: "400",
               marginHorizontal: "4%",
-              marginTop:-10,
+              marginTop: -10,
               marginVertical: "2%",
-              
             }}
           >
             Take a look on the premium collection of NFC cards
           </Text>
-          <View style={{
+          <View
+            style={{
               flexDirection: "row",
               flex: 1,
-          }}>
-           <FlatList
+            }}
+          >
+            <FlatList
               data={[
                 {
                   id: 1,
-                  price: 1000.00,
+                  price: 1000.0,
                   name: "Writing & Editing",
                   imageSource: ICONS.PHOTOGRAPHY,
                   off: "1000",
                 },
                 {
                   id: 2,
-                  price: 2000.00,
+                  price: 2000.0,
                   name: "Photography",
                   imageSource: ICONS.BUSINESS_CARD,
                   off: "5000",
                 },
                 {
                   id: 3,
-                  price: 3000.00,
+                  price: 3000.0,
                   name: "Clothing",
                   imageSource: ICONS.PREMIUM,
                   off: "4000",
                 },
                 {
                   id: 4,
-                  price: 5000.00,
+                  price: 5000.0,
                   name: "Travel Agencies ",
                   imageSource: ICONS.CATALOG,
                   off: "3000",
@@ -255,9 +255,8 @@ const HomeScreen = () => {
               )}
             />
           </View>
-          </ScrollView>
-        </LinearGradient>
-     
+        </ScrollView>
+      </LinearGradient>
     </SafeAreaView>
   );
 };

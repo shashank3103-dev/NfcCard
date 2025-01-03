@@ -3,8 +3,6 @@ import {
   createStackNavigator,
   TransitionPresets,
 } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
-import HomeScreen from "../screens/homescreen/HomeScreen";
 import SplashScreen from "../screens/splashscreen/SplashScreen";
 import { getDataFromEncryptedStorage } from "../resources/Utilities";
 import { storageKeys } from "../resources/Constants";
@@ -20,7 +18,7 @@ const RootNavigation = () => {
   }, []);
 
   const fetchToken = async () => {
-    getDataFromEncryptedStorage(storageKeys.kTOKEN).then((res) => {
+    getDataFromEncryptedStorage(storageKeys.kACCESS_TOKEN).then((res) => {
       if (res) {
         setToken(token);
       }
@@ -31,17 +29,19 @@ const RootNavigation = () => {
     headerShown: false,
   };
   return (
-    <NavigationContainer>
-      <RootStack.Navigator
-        initialRouteName="BottomTab"      
-        screenOptions={TransitionScreenOptions}
-      >
-        <RootStack.Screen name="Login" component={Login} />
-        <RootStack.Screen name="SplashScreen" component={SplashScreen} />
-        <RootStack.Screen name="OTP" component={OTPScreen} />
-        <RootStack.Screen name="BottomTab" component={BottomTab} />
-      </RootStack.Navigator>
-    </NavigationContainer>
+    <RootStack.Navigator
+      initialRouteName="SplashScreen"
+      screenOptions={TransitionScreenOptions}
+    >
+      <RootStack.Screen
+        name="SplashScreen"
+        component={SplashScreen}
+        options={{ headerShown: false }}
+      />
+      <RootStack.Screen name="Login" component={Login} />
+      <RootStack.Screen name="OTP" component={OTPScreen} />
+      <RootStack.Screen name="BottomTab" component={BottomTab} />
+    </RootStack.Navigator>
   );
 };
 

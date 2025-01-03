@@ -158,11 +158,11 @@ const Login = () => {
                 style={{
                   width: SIZES.width * 0.8,
                 }}
-                title={"Continue"}
+                title={loading ? "...processing":'Continue'}
                 onPress={() => {
                   if (isDataValid()) emailLoginApiCall();
-                }}
-              />
+                } } 
+                disabled={loading}              />
 
               <Text
                 style={{

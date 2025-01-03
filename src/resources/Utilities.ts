@@ -46,7 +46,7 @@ export const getDataFromEncryptedStorage = async (key: string) => {
   }
 };
 // Utility function for setting data in AsyncStorage
-export const setDataInEncriptedStorage = async (key: string, value: any) => {
+export const setDataInEncryptedStorage = async (key: string, value: any) => {
   try {
     await EncryptedStorage.setItem(key, value);
     console.log('Data saved successfully in AsyncStorage');
@@ -58,7 +58,7 @@ export const setDataInEncriptedStorage = async (key: string, value: any) => {
 export const clearEncryptedStorage = async () => {
   try {
     await EncryptedStorage.clear();
-    console.log('Data saved successfully in AsyncStorage');
+    console.log('Data Clear successfully in AsyncStorage');
   } catch (error) {
     // Error saving data
     console.error('Error saving data in EncryptedStorage:', error);

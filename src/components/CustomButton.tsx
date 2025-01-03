@@ -13,13 +13,15 @@ import { COLORS, ICONS, SHADOW } from "../resources";
 interface BtnProps {
   style: any;
   title: string;
+  disabled: any;
   onPress: () => void;
 }
 const CustomButton = (props: BtnProps) => {
-  const { style, title, onPress } = props;
+  const { style,disabled, title, onPress } = props;
   return (
     <TouchableOpacity
       onPress={onPress}
+       disabled={disabled}
       style={[
         {
           backgroundColor: COLORS.primary,

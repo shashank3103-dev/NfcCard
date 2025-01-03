@@ -18,9 +18,7 @@ import { ICONS, UTILITIES } from "../../resources";
 import { storageKeys } from "../../resources/Constants";
 import URLManager from "../../networkLayer/URLManager";
 
-
 const OtpScreen = ({ navigation, route }: any) => {
-
   const [otp, setOtp] = useState("");
   const { email } = route.params;
   const windowWidth = useWindowDimensions().width;
@@ -51,26 +49,35 @@ const OtpScreen = ({ navigation, route }: any) => {
     try {
       setLoading(true);
       let urlManager = new URLManager();
+      const requestData = { email, otp_code: otp };
+      console.log("Sending data to verifyOTP API:", requestData);
+
       return urlManager
-        .verifyOTP({ otp_code: otp, email: email })
+        .verifyOTP(requestData)
         .then((res) => {
-          console.log(res);
+          console.log("API response:", res);
           return res.json() as Promise<any>;
         })
         .then(async (res: any) => {
           if (!res.error) {
             UTILITIES.setDataInStorage(
-              storageKeys.kPROFILE_DETAILS,
-              JSON.stringify(route?.params?.data)
+              storageKeys.kEMAIL,
+              JSON.stringify(route.params.email)
             );
-            await UTILITIES.setDataInEncriptedStorage(
-              storageKeys.kTOKEN,
-              route?.params?.token
+
+            await UTILITIES.setDataInEncryptedStorage(
+              storageKeys.kACCESS_TOKEN,
+              res.access_token
             );
-            navigation.navigate("Home");
+            await UTILITIES.setDataInEncryptedStorage(
+              storageKeys.kREFRESH_TOKEN,
+              res.refresh_token
+            );
+            Alert.alert("Success", res.message);
+            navigation.navigate("BottomTab");
           } else {
-            if (res.error == 'Failed to send OTP')
-            Alert.alert("Error", res.error);
+            if (res.error == "Failed to send OTP")
+              Alert.alert("Error", res.error);
           }
           console.log(res);
         })
@@ -88,10 +95,11 @@ const OtpScreen = ({ navigation, route }: any) => {
 
   async function handleOTP() {
     if (otp.length < 6) {
-      Alert.alert("Error", "Please enter OTP");
-    } else if (otp != confirmedOtp) {
+      Alert.alert("Error", "Please enter a valid 6-digit OTP");
+    } else if (otp != otp) {
       Alert.alert("Error", "Invalid OTP");
     } else {
+      // Directly call the API without comparing OTP locally
       await verifyOTPApiCall();
     }
   }
@@ -196,12 +204,9 @@ const OtpScreen = ({ navigation, route }: any) => {
             style={{
               width: SIZES.width * 0.8,
             }}
-            title={"Continue"}
-            // onPress={handleOTP}
-            onPress={()=>{
-              navigation.navigate('BottomTab')
-            }}
-           
+            title={loading ? "Verifying..." : "Continue"}
+            onPress={handleOTP}
+            disabled={loading}
           />
         </View>
       </LinearGradient>
