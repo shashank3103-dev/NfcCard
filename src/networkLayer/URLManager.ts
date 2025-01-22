@@ -1,7 +1,11 @@
 import URLService from './URLServices';
 import {EndPoints, baseUrl} from '../resources/Constants';
-import {emailRequestBody, refreshTokenBody, VerifyOtpRequestBody} from './Modals';
-
+import {
+  emailRequestBody,
+  refreshTokenBody,
+  VerifyOtpRequestBody,
+} from './Modals';
+import {Service} from '../stateManagement/models/HomeScreenModel';
 
 export default class URLManager {
   getData(data: number) {
@@ -57,7 +61,7 @@ export default class URLManager {
     let urlPath = baseUrl + EndPoints.GET_ALL_SERVICES;
     console.log(urlPath);
     return urlService
-      .fetchAsyncData(urlPath, {}, 'GET')
+      .fetchAsyncData(urlPath,{}, 'GET')
       .then((res: any) => res);
   }
 }

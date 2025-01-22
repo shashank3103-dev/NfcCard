@@ -14,7 +14,7 @@ import HomeNavigation from "./HomeNavigation";
 import ShopNavigation from "./ShopNavigation";
 import CartScreen from "../screens/cartscreen/CartScreen";
 import ProfileScreen from "../screens/profile/ProfileScreen";
-import { SHADOW_BOTTOM_TAB } from "../resources/Theme";
+import { FONTS, SHADOW_BOTTOM_TAB } from "../resources/Theme";
 import ProfileNavigation from "./ProfileNavigation";
 function getIcons(routeName: string) {
   switch (routeName) {
@@ -106,8 +106,9 @@ function MyTabBar({
                 style={{
                   marginTop: 5,
                   color: isFocused ? COLORS.primary : COLORS.black,
-                  fontSize: 12,
-                  fontWeight: "500",
+                  // fontSize: 12,
+                  // fontWeight: "500",
+                  ...FONTS.body5,
                 }}
               >
                 {label}

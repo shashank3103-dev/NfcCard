@@ -7,18 +7,52 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  Alert,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LinearGradient from "react-native-linear-gradient";
 import { COLORS, FONTS, SIZES } from "../../resources/Theme";
 import CommonHeader from "../../components/CommonHeader";
-// import { Image } from "react-native-reanimated/lib/typescript/Animated";
 import { ICONS } from "../../resources";
 import ServicesCard from "../../components/homeComponent/ServicesCard";
 import SearchByIndustryCard from "../../components/homeComponent/SearchByIndustryCard";
 import PremiumProductsCard from "../../components/homeComponent/PremiumProductsCard";
-
-const HomeScreen = () => {
+import { Service } from "../../stateManagement/models/HomeScreenModel";
+import URLManager from "../../networkLayer/URLManager";
+import { storageKeys } from "../../resources/Constants";
+import { getDataFromEncryptedStorage } from "../../resources/Utilities";
+const HomeScreen = async () => {
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(false);
+  async function fetchUserServices() {
+    try {
+      setLoading(true); 
+      const urlManager = new URLManager();
+      const response = await urlManager.getAllServices();
+      if (!response.ok) {
+        throw new Error(`Failed to fetch services: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(data, "USER SERVICES");
+      if (Array.isArray(data)) {
+        setServices(data);
+      } else if (data?.data?.services) {
+        setServices(data.data.services);
+      } else {
+        console.log("Unexpected data format", data);
+        setServices([]); 
+      }
+    } catch (error) {
+      console.error("Error fetching user services:", error);
+      Alert.alert("Error",  "Unable to fetch services.");
+    } finally {
+      setLoading(false); 
+    }
+  }
+  useEffect(() => {
+    fetchUserServices();
+  }, []);
+ 
   return (
     <SafeAreaView
       style={{
@@ -27,12 +61,14 @@ const HomeScreen = () => {
     >
       <CommonHeader title={""} />
       <LinearGradient
-        colors={["#FFF8DE", "#FFFF", "#FFF8DE"]} // Define your gradient colors here
+        colors={["#FFF8DE", "#FFFF", "#FFF8DE"]} 
         style={{
           flex: 1,
         }}
       >
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <ScrollView 
+        contentContainerStyle={{ flexGrow: 1 }}
+        showsVerticalScrollIndicator={false}>
           <View>
             <Image
               style={{
@@ -47,8 +83,8 @@ const HomeScreen = () => {
             <Text
               style={{
                 ...FONTS.body4,
-                color: COLORS.black,
-                fontWeight: "700",
+                // color: COLORS.black,
+                // fontWeight: "700",
                 marginHorizontal: "4%",
               }}
             >
@@ -58,7 +94,7 @@ const HomeScreen = () => {
               style={{
                 ...FONTS.body6,
                 color: COLORS.black,
-                fontWeight: "400",
+              
                 marginHorizontal: "4%",
               }}
             >
@@ -72,57 +108,28 @@ const HomeScreen = () => {
               }}
             >
               <FlatList
-                data={[
-                  {
-                    id: 1,
-                    price: 30,
-                    name: "NFC Business Cards with Vcard",
-                    imageSource: ICONS.VCARD,
-                    off: "1000",
-                  },
-                  {
-                    id: 2,
-                    price: 50,
-                    name: "NFC Business Cards Micro Web Page",
-                    imageSource: ICONS.BUSINESS_CARD,
-                    off: "5000",
-                  },
-                  {
-                    id: 3,
-                    price: 221,
-                    name: "NFC Menu and Catalogue Cards",
-                    imageSource: ICONS.CATALOG,
-                    off: "4000",
-                  },
-                  {
-                    id: 4,
-                    price: 221,
-                    name: "NFC Pet Locks",
-                    imageSource: ICONS.KEYCHAIN,
-                    off: "3000",
-                  },
-                ]}
+                data={services || []}
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                renderItem={({ item }) => (
-                  <TouchableOpacity activeOpacity={1}>
-                    <ServicesCard
-                      name={item.name}
-                      price={item.price}
-                      off={item.off}
-                      imageSource={item.imageSource}
-                    />
-                  </TouchableOpacity>
-                )}
+                keyExtractor={(item, index) =>
+                  item?.id?.toString() || index.toString()
+                }
+                renderItem={({ item }) => {
+                  if (!item) return null; 
+                  return (
+                    <TouchableOpacity activeOpacity={1}>
+                      <ServicesCard service={item} />
+                    </TouchableOpacity>
+                  );
+                }}
               />
             </View>
           </View>
-
           <Text
             style={{
               ...FONTS.body4,
               color: COLORS.black,
-              fontWeight: "700",
+              // fontWeight: "700",
               marginHorizontal: "4%",
               marginVertical: "2%",
             }}
@@ -185,7 +192,7 @@ const HomeScreen = () => {
             style={{
               ...FONTS.body4,
               color: COLORS.black,
-              fontWeight: "700",
+              // fontWeight: "700",
               marginHorizontal: "4%",
               marginVertical: "2%",
             }}
@@ -196,7 +203,7 @@ const HomeScreen = () => {
             style={{
               ...FONTS.body6,
               color: COLORS.black,
-              fontWeight: "400",
+              // fontWeight: "400",
               marginHorizontal: "4%",
               marginTop: -10,
               marginVertical: "2%",
@@ -260,7 +267,5 @@ const HomeScreen = () => {
     </SafeAreaView>
   );
 };
-
 export default HomeScreen;
-
 const styles = StyleSheet.create({});

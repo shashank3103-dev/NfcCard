@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React from "react";
 import { COLORS, ICONS, SIZES, FONTS, SHADOW_BLUE, SHADOW } from "../resources";
-import { useNavigation } from "@react-navigation/native";
+import { DrawerActions, useNavigation } from "@react-navigation/native";
 interface CommonHeader {
   title: string;
 }
@@ -29,10 +29,8 @@ const CommonHeader = (props: CommonHeader) => {
       }}
     >
       <TouchableOpacity
-        onPress={() => {
-          navigation.goBack();
-        }}
-        style={{}}
+       onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+      
       >
         <Image
           resizeMode="contain"

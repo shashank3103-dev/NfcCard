@@ -1,5 +1,7 @@
 import {
   Image,
+  KeyboardAvoidingView,
+  Platform,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -24,25 +26,34 @@ const PersonalDetails = () => {
 
   const data = GENDER;
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <LinearGradient
-        colors={["#FFD02B", "#FFFFFF", "#FFFFFF", "#FFF8DE"]} // Define your gradient colors here
-        style={{
-          flex: 1,
-          // padding: SIZES.padding,
-        }}
-      >
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+   <SafeAreaView style={{ flex: 1 }}>
+         <KeyboardAvoidingView
+           style={{ flex: 1 }}
+           behavior={Platform.OS === "ios" ? "padding" : "height"} // Ensure proper keyboard behavior based on platform
+         >
+           <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+             <LinearGradient
+               colors={["#FFD02B", "#FFFFFF", "#FFFFFF", "#FFF8DE"]} // Define your gradient colors here
+               style={{
+                 flex: 1,
+                 padding: SIZES.padding,
+                 alignItems: "center",
+                 justifyContent: "center",
+                 gap: 20,
+               }}
+             >
           <View
             style={{
               alignItems: "center",
               justifyContent: "center",
               padding: SIZES.padding,
+              flex: 1,
             }}
           >
             <Text
               style={{
                 fontSize: 20,
+                fontFamily: "Poppins-Medium",
               }}
             >
               Personal Details
@@ -62,7 +73,7 @@ const PersonalDetails = () => {
                 flexDirection: "column",
                 justifyContent: "space-between",
                 // backgroundColor: "green",
-                marginTop: 20,
+                // marginTop: 20,
                 marginBottom: 20,
                 // marginVertical:'3%',
               }}
@@ -71,7 +82,8 @@ const PersonalDetails = () => {
                 style={{
                   fontSize: 16,
                   color: "#5A5A5A",
-                  fontWeight: "500",
+                  // fontWeight: "500",
+                  fontFamily: "Poppins-Regular",
                   marginBottom: 10,
                 }}
               >
@@ -86,6 +98,127 @@ const PersonalDetails = () => {
                   backgroundColor: "#FFF1BF",
                   color: COLORS.black,
                   fontSize: 14,
+                  fontFamily: "Poppins-Regular",
+                }}
+                placeholder="Enter your name"
+                placeholderTextColor={"#5A5A5A"}
+                value={name}
+                onChangeText={(text) => setName(text)}
+              />
+            </View>
+             <View
+              style={{
+                width: SIZES.width * 0.8,
+                height: 30,
+                flexDirection: "column",
+                justifyContent: "space-between",
+              
+                // marginTop: 20,
+                marginBottom: 20,
+                // marginVertical:'3%',
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: "#5A5A5A",
+                  // fontWeight: "500",
+                  fontFamily: "Poppins-Regular",
+                  marginBottom: 10,
+                }}
+              >
+                Name
+              </Text>
+              <TextInput
+                style={{
+                  padding: 5,
+                  marginBottom: 10,
+                  width: SIZES.width * 0.8,
+                  height: 30,
+                  backgroundColor: "#FFF1BF",
+                  color: COLORS.black,
+                  fontSize: 14,
+                  fontFamily: "Poppins-Regular",
+                }}
+                placeholder="Enter your name"
+                placeholderTextColor={"#5A5A5A"}
+                value={name}
+                onChangeText={(text) => setName(text)}
+              />
+            </View>
+             <View
+              style={{
+                width: SIZES.width * 0.8,
+                height: 30,
+                flexDirection: "column",
+                justifyContent: "space-between",
+               
+                // marginTop: 20,
+                marginBottom: 20,
+                // marginVertical:'3%',
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: "#5A5A5A",
+                  // fontWeight: "500",
+                  fontFamily: "Poppins-Regular",
+                  marginBottom: 10,
+                }}
+              >
+                Name
+              </Text>
+              <TextInput
+                style={{
+                  padding: 5,
+                  marginBottom: 10,
+                  width: SIZES.width * 0.8,
+                  height: 30,
+                  backgroundColor: "#FFF1BF",
+                  color: COLORS.black,
+                  fontSize: 14,
+                  fontFamily: "Poppins-Regular",
+                }}
+                placeholder="Enter your name"
+                placeholderTextColor={"#5A5A5A"}
+                value={name}
+                onChangeText={(text) => setName(text)}
+              />
+            </View>
+             <View
+              style={{
+                width: SIZES.width * 0.8,
+                height: 30,
+                flexDirection: "column",
+                justifyContent: "space-between",
+               
+                // marginTop: 20,
+                marginBottom: 20,
+                // marginVertical:'3%',
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: "#5A5A5A",
+                  // fontWeight: "500",
+                  fontFamily: "Poppins-Regular",
+                  marginBottom: 10,
+                }}
+              >
+                Name
+              </Text>
+              <TextInput
+                style={{
+                  padding: 5,
+                  marginBottom: 10,
+                  width: SIZES.width * 0.8,
+                  height: 30,
+                  backgroundColor: "#FFF1BF",
+                  color: COLORS.black,
+                  fontSize: 14,
+                  fontFamily: "Poppins-Regular",
                 }}
                 placeholder="Enter your name"
                 placeholderTextColor={"#5A5A5A"}
@@ -99,8 +232,8 @@ const PersonalDetails = () => {
                 height: 30,
                 flexDirection: "column",
                 justifyContent: "space-between",
-                // backgroundColor: "green",
-                marginTop: 20,
+             
+                // marginTop: 20,
                 // marginVertical:'3%',
               }}
             >
@@ -108,7 +241,8 @@ const PersonalDetails = () => {
                 style={{
                   fontSize: 16,
                   color: "#5A5A5A",
-                  fontWeight: "500",
+                  // fontWeight: "500",
+                  fontFamily: "Poppins-Regular",
                   marginBottom: 10,
                 }}
               >
@@ -123,6 +257,7 @@ const PersonalDetails = () => {
                   backgroundColor: "#FFF1BF",
                   color: COLORS.black,
                   fontSize: 14,
+                  fontFamily: "Poppins-Regular",
                 }}
                 placeholder="Enter your Email"
                 placeholderTextColor={"#5A5A5A"}
@@ -131,83 +266,9 @@ const PersonalDetails = () => {
                 onChangeText={(text) => setEmail(text)}
               />
             </View>
-             <View
-              style={{
-                width: SIZES.width * 0.8,
-                height: 30,
-                flexDirection: "column",
-                justifyContent: "space-between",
-                // backgroundColor: "green",
-                marginTop: 20,
-                // marginVertical:'3%',
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 16,
-                  color: "#5A5A5A",
-                  fontWeight: "500",
-                  marginBottom: 10,
-                }}
-              >
-                Phone
-              </Text>
-              <TextInput
-                style={{
-                  padding: 5,
-                  marginBottom: 10,
-                  width: SIZES.width * 0.8,
-                  height: 30,
-                  backgroundColor: "#FFF1BF",
-                  color: COLORS.black,
-                  fontSize: 14,
-                }}
-                placeholder="Enter your Phone Number"
-                placeholderTextColor={"#5A5A5A"}
-                value={phoneNumber}
-                keyboardType='number-pad'
-                onChangeText={(text) => setPhoneNumber(text)}
-              />
-            </View>
-             <View
-              style={{
-                width: SIZES.width * 0.8,
-                height: 30,
-                flexDirection: "column",
-                justifyContent: "space-between",
-                // backgroundColor: "green",
-                marginTop: 20,
-                // marginVertical:'3%',
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 16,
-                  color: "#5A5A5A",
-                  fontWeight: "500",
-                  marginBottom: 10,
-                }}
-              >
-                Location
-              </Text>
-              <TextInput
-                style={{
-                  padding: 5,
-                  marginBottom: 10,
-                  width: SIZES.width * 0.8,
-                  height: 30,
-                  backgroundColor: "#FFF1BF",
-                  color: COLORS.black,
-                  fontSize: 14,
-                }}
-                placeholder="Enter your Address"
-                placeholderTextColor={"#5A5A5A"}
-                value={location}
-                keyboardType="email-address"
-                onChangeText={(text) => setLocation(text)}
-              />
-            </View>
-                    {/* <Dropdown
+            
+        
+            {/* <Dropdown
           style={{
             width: SIZES.width * 0.8,
             paddingHorizontal: 10,
@@ -227,12 +288,12 @@ const PersonalDetails = () => {
           itemTextStyle={{ color: COLORS.gray }}
           onChange={(item) => setGender(item.value)}
         /> */}
-        
-
           </View>
-        </ScrollView>
-      </LinearGradient>
+        </LinearGradient>
+      </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
+
   );
 };
 

@@ -12,7 +12,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import React, { useState } from "react";
-import { COLORS, SHADOW, SIZES } from "../../resources/Theme";
+import { COLORS, FONTS, SHADOW, SIZES } from "../../resources/Theme";
 import LinearGradient from "react-native-linear-gradient";
 import { ICONS, STRINGS } from "../../resources";
 import CustomButton from "../../components/CustomButton";
@@ -45,7 +45,7 @@ const Login = () => {
         .then((res) => {
           if (!res.error) {
             console.log(res);
-            navigation.navigate('OTP', { email: email, ...res });
+            navigation.navigate("OTP", { email: email, ...res });
           } else {
             if (res.error == "Failed to send OTP")
               Alert.alert("Error", res.error);
@@ -53,7 +53,7 @@ const Login = () => {
           console.log(res);
         })
         .catch((e) => {
-          Alert.alert(e.name, e.message);
+          // Alert.alert(e.name, e.message);
           return e.response;
         })
         .finally(() => {
@@ -75,7 +75,7 @@ const Login = () => {
       return false;
     }
     return true;
-  };
+  }
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView
@@ -88,12 +88,19 @@ const Login = () => {
             style={{
               flex: 1,
               padding: SIZES.padding,
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 20,
             }}
           >
             <View
               style={{
                 // flex: 1,
+                width: SIZES.width * 0.6,
+                height: SIZES.height * 0.3,
+                // backgroundColor: COLORS.red,
                 alignItems: "center",
+                justifyContent: "center",
               }}
             >
               <Image
@@ -104,39 +111,36 @@ const Login = () => {
                 resizeMode="contain"
                 source={ICONS.APP_LOGO_ICON}
               ></Image>
-              <View
+            </View>
+            <View
+              style={{
+                // height: 100,
+                width: SIZES.width * 0.8,
+                // backgroundColor: COLORS.white,
+                justifyContent: "center",
+              }}
+            >
+              <Text
                 style={{
-                  height: 100,
-                  justifyContent: "center",
-                  marginRight: 100,
-                  position: "relative",
+                  ...FONTS.h0,
+                  marginStart: 20,
                 }}
               >
-                <Text
-                  style={{
-                    fontSize: SIZES.h2,
-                    color: COLORS.black,
-                    fontFamily: "Montserrat-ThinItalic",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Enter your
-                </Text>
-                <Text
-                  style={{
-                    fontSize: SIZES.h2,
-                    color: COLORS.black,
-                    fontFamily: "Montserrat-ThinItalic",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Email Address
-                </Text>
-              </View>
+                Enter your
+              </Text>
+              <Text
+                style={{
+                  ...FONTS.h0,
+                  marginStart: 20,
+                  marginBottom: 20,
+                }}
+              >
+                Email Address
+              </Text>
               <View
                 style={{
                   width: SIZES.width * 0.8,
-                  height: SIZES.height * 0.08,
+                  height: SIZES.height * 0.07,
                   backgroundColor: COLORS.secondary,
                   borderRadius: 30,
                   ...SHADOW,
@@ -145,68 +149,73 @@ const Login = () => {
                 <TextInput
                   style={{
                     width: SIZES.width * 0.8,
-                    height: SIZES.height * 0.08,
-                    marginStart:10,
+                    height: SIZES.height * 0.07,
+                    marginStart: 10,
+                    color: COLORS.black,
+                    ...FONTS.body3,
                   }}
                   onChangeText={(text: string) => setEmail(text)}
                   keyboardType="email-address"
-                  placeholder=" Enter your Email"
-                  
+                  placeholder="Email"
+                  placeholderTextColor={COLORS.darkGray}
                 />
               </View>
               <CustomButton
                 style={{
                   width: SIZES.width * 0.8,
+                  // height: '20%',
                 }}
-                title={loading ? "...processing":'Continue'}
+                title={loading ? "...processing" : "Continue"}
                 onPress={() => {
                   if (isDataValid()) emailLoginApiCall();
-                } } 
-                disabled={loading}              />
+                }}
+                disabled={loading}
+              />
+            </View>
 
-              <Text
+            <Text
+              style={{
+                fontSize: 10,
+                marginTop: 30,
+                color: COLORS.black,
+                fontFamily:'Poppins-Regular'
+              }}
+            >
+              Or Login with
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                flex: 1,
+                justifyContent: "space-between",
+                gap: 20,
+                marginTop: 10,
+              }}
+            >
+              <Image
                 style={{
-                  fontSize: 10,
-                  marginTop: 30,
-                  color: COLORS.black,
+                  width: 20,
+                  height: 20,
                 }}
-              >
-                Or Login with
-              </Text>
-              <View
+                resizeMode="contain"
+                source={ICONS.GOOGLE}
+              ></Image>
+              <Image
                 style={{
-                  flexDirection: "row",
-                  flex: 1,
-                  justifyContent: "space-between",
-                  gap: 20,
-                  marginTop: 10,
+                  width: 20,
+                  height: 20,
                 }}
-              >
-                <Image
-                  style={{
-                    width: 20,
-                    height: 20,
-                  }}
-                  resizeMode="contain"
-                  source={ICONS.GOOGLE}
-                ></Image>
-                <Image
-                  style={{
-                    width: 20,
-                    height: 20,
-                  }}
-                  resizeMode="contain"
-                  source={ICONS.APPLE}
-                ></Image>
-                <Image
-                  style={{
-                    width: 20,
-                    height: 20,
-                  }}
-                  resizeMode="contain"
-                  source={ICONS.FACEBOOK}
-                ></Image>
-              </View>
+                resizeMode="contain"
+                source={ICONS.APPLE}
+              ></Image>
+              <Image
+                style={{
+                  width: 20,
+                  height: 20,
+                }}
+                resizeMode="contain"
+                source={ICONS.FACEBOOK}
+              ></Image>
             </View>
           </LinearGradient>
           {loading && (

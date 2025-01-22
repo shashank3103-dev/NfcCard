@@ -1,24 +1,19 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
 import { COLORS, SHADOW } from "../../resources";
-// import {defaultShadowNew} from '../../utils/BaseUtils';
+import { Service } from "../../stateManagement/models/HomeScreenModel";
 
-// Updated interface to reflect the category data
-interface CategoryProps {
-  price: any;
-  name: string;
-  off: string;
-  imageSource: any;
-  style?: any; // Optional style prop
+interface ItemProps {
+  service: Service; // Use the Service interface here
+  style?: any; // Make style optional
 }
 
-const ServicesCard: React.FC<CategoryProps> = ({
-  name,
-  price,
-  imageSource,
-  style,
-  off,
+const ServicesCard: React.FC<ItemProps> = ({
+  service, style
 }) => {
+   const imageSource = service?.image || "https://via.placeholder.com/60";
+  const serviceType = service?.type || "Unknown";
+  const servicePrice = service?.price !== undefined ? service.price : "N/A";
   return (
     <View
       style={{
@@ -31,12 +26,14 @@ const ServicesCard: React.FC<CategoryProps> = ({
         ...style,
         borderWidth: 0.5,
         borderColor: COLORS.lightGray,
-        marginStart: 10,
+        // marginStart: 10,
+        margin:10,
+        // marginEnd: 10,
         marginVertical: 10,
       }}
     >
       <Image
-        source={imageSource} // Use the image URL from the API
+        source={{uri: imageSource}} // Use the image URL from the API
         resizeMode="contain"
         style={{ width: 60, height: 60 }}
       />
@@ -57,26 +54,27 @@ const ServicesCard: React.FC<CategoryProps> = ({
       >
         <Text
           style={{
-            fontSize: 7,
+            fontSize: 8,
             color: COLORS.black,
             textAlign: "center",
+            fontFamily:'Poppins-Regular',
             textTransform: "capitalize",
           }}
         >
-          {name}
+          {serviceType}
         </Text>
       </View>
       <Text
         style={{
           marginTop: 5,
-          fontSize: 6,
+          fontSize: 7,
           color: COLORS.black,
           textAlign: "center",
-          fontWeight: "400",
-          //     textDecorationLine: 'line-through',
+          // fontWeight: "400",
+          fontFamily:'Poppins-Regular',
         }}
       >
-        {`${off} Starting At ${price}`}
+        {`Starting At ₹${servicePrice}`}
       </Text>
  
     </View>

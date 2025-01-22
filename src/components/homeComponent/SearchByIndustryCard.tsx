@@ -38,7 +38,8 @@ const ServicesCard: React.FC<CategoryProps> = ({
           justifyContent: "center",
           ...style,
           ...SHADOW_RIGHT,
-          marginStart: 10,
+          // gap: 10,
+        margin:10,
 
           // marginEnd: 10,
           marginVertical: 10,
@@ -58,7 +59,8 @@ const ServicesCard: React.FC<CategoryProps> = ({
             fontSize: 10,
             color: COLORS.black,
             textAlign: "center",
-            fontWeight: "400",
+            fontFamily: "Poppins-Regular",
+            // fontWeight: "400",
             marginBottom: 10,
             //     textDecorationLine: 'line-through',
           }}

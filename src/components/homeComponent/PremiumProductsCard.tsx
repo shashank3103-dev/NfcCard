@@ -31,7 +31,8 @@ const ServicesCard: React.FC<CategoryProps> = ({
         justifyContent: "center",
         ...style,
         ...SHADOW_RIGHT,
-        marginStart: 10,
+        // marginStart: 10,
+        margin:10,
         marginVertical: 10,
       }}
     >
@@ -66,6 +67,7 @@ const ServicesCard: React.FC<CategoryProps> = ({
             fontSize: 10,
             color: COLORS.black,
             textAlign: "center",
+            fontFamily:'Poppins-Regular',
             textTransform: "capitalize",
           }}
         >
@@ -79,7 +81,9 @@ const ServicesCard: React.FC<CategoryProps> = ({
           fontSize: 8,
           color: COLORS.black,
           textAlign: "center",
-          fontWeight: "500",
+          // fontWeight: "500",
+          fontFamily:'Poppins-Regular',
+
         }}
       >
         {name}

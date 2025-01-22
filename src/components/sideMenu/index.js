@@ -7,31 +7,31 @@ import {COLORS, ICONS} from '../../resources';
 const DATA = [
   {
     id: 1,
-    title: 'Home',
+    title: 'Business Cards',
 //     image: ICONS.navHome,
     isSelected: false,
   },
   {
     id: 2,
-    title: 'Profile',
+    title: 'NFC Cards',
 //     image: ICONS.nav_profile,
     isSelected: false,
   },
   {
     id: 3,
-    title: 'Horoscope',
+    title: 'Printing',
 //     image: ICONS.nav_astrology,
     isSelected: false,
   },
   {
     id: 4,
-    title: 'About us',
+    title: 'FAQs',
 //     image: ICONS.about_us,
     isSelected: false,
   },
   {
     id: 5,
-    title: 'Wishlist',
+    title: 'Help & Support',
 //     image: ICONS.wishlist,
     isSelected: false,
   },
@@ -47,12 +47,7 @@ const DATA = [
 //     image: ICONS.help_support,
     isSelected: false,
   },
-  {
-    id: 8,
-    title: 'Wallet',
-//     image: ICONS.wallet,
-    isSelected: false,
-  },
+  
 ];
 
 const SideMenu = props => {
@@ -63,13 +58,10 @@ const SideMenu = props => {
         onPress={() => {
           onItemPress(item?.id);
         }}>
-        {/* <Image
-          source={item?.image}
-          style={{height: 20, width: 20}}
-          resizeMode="contain"
-        /> */}
+      
         <View style={styles.textMargin}>
           <Text style={styles.menuText}>{item?.title}</Text>
+
         </View>
       </TouchableOpacity>
     </View>
@@ -79,7 +71,7 @@ const SideMenu = props => {
     props.navigation.toggleDrawer();
     switch (title) {
       case 1:
-        return props.navigation.navigate('Home');
+        return props.navigation.navigate('HomeScreen');
       case 2:
         return props.navigation.navigate('UserProfile');
       case 8:
@@ -90,13 +82,12 @@ const SideMenu = props => {
   return (
     <View style={{flex: 1, backgroundColor: COLORS.white}}>
       <View style={styles.sideMenuBg} />
-      <View>
-        <View>
-          <Image source={ICONS.DIVINE_LOGO} style={styles.logo} />
-        </View>
-      </View>
-      <View style={{marginBottom: 20, flex: 1}}>
-        <View style={{flex: 1}}>
+   
+      <View style={{
+        marginBottom: 20,
+      // backgroundColor:'red',
+      flex: 1, }}>
+        <View style={{flex: 1, }}>
           <FlatList
             data={DATA}
             renderItem={renderItem}

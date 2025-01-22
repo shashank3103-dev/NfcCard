@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React from "react";
 import LinearGradient from "react-native-linear-gradient";
-import { COLORS, SIZES } from "../../resources/Theme";
+import { COLORS, FONTS, SIZES } from "../../resources/Theme";
 import { ICONS, UTILITIES } from "../../resources";
 
 const ProfileScreen = ({ navigation }: any) => {
@@ -28,11 +28,13 @@ const ProfileScreen = ({ navigation }: any) => {
               alignItems: "center",
               justifyContent: "center",
               padding: SIZES.padding,
+              flex:1,
             }}
           >
             <Text
               style={{
-                fontSize: 20,
+                // fontSize: 20,
+                ...FONTS.h2,
               }}
             >
               Profile
@@ -87,9 +89,7 @@ const ProfileScreen = ({ navigation }: any) => {
               >
                 <Text
                   style={{
-                    fontSize: 16,
-                    color: COLORS.black,
-                    fontWeight: "400",
+                   ...FONTS.body2,
                   }}
                 >
                   History
@@ -109,6 +109,7 @@ const ProfileScreen = ({ navigation }: any) => {
                 width: SIZES.width * 0.8,
                 height: 30,
                 flexDirection: "row",
+               
                 justifyContent: "space-between",
                 // backgroundColor: "green",
                 marginTop: 20,
@@ -146,9 +147,7 @@ const ProfileScreen = ({ navigation }: any) => {
               >
                 <Text
                   style={{
-                    fontSize: 16,
-                    color: COLORS.black,
-                    fontWeight: "400",
+                    ...FONTS.body2,
                   }}
                 >
                   Personal Details
@@ -204,9 +203,7 @@ const ProfileScreen = ({ navigation }: any) => {
               >
                 <Text
                   style={{
-                    fontSize: 16,
-                    color: COLORS.black,
-                    fontWeight: "400",
+                   ...FONTS.body2,
                   }}
                 >
                   Address
@@ -262,9 +259,7 @@ const ProfileScreen = ({ navigation }: any) => {
               >
                 <Text
                   style={{
-                    fontSize: 16,
-                    color: COLORS.black,
-                    fontWeight: "400",
+                   ...FONTS.body2,
                   }}
                 >
                   Payment Method
@@ -320,9 +315,7 @@ const ProfileScreen = ({ navigation }: any) => {
               >
                 <Text
                   style={{
-                    fontSize: 16,
-                    color: COLORS.black,
-                    fontWeight: "400",
+                ...FONTS.body2,
                   }}
                 >
                   About
@@ -378,9 +371,7 @@ const ProfileScreen = ({ navigation }: any) => {
               >
                 <Text
                   style={{
-                    fontSize: 16,
-                    color: COLORS.black,
-                    fontWeight: "400",
+                   ...FONTS.body2,
                   }}
                 >
                   Help and Support
@@ -441,9 +432,7 @@ const ProfileScreen = ({ navigation }: any) => {
               >
                 <Text
                   style={{
-                    fontSize: 16,
-                    color: COLORS.black,
-                    fontWeight: "400",
+                  ...FONTS.body2,
                   }}
                 >
                   Log out

@@ -41,8 +41,9 @@ const CustomButton = (props: BtnProps) => {
         style={{
           color: COLORS.white,
           fontSize: 14,
-          fontWeight: "bold",
+          // fontWeight: "bold",
           position: "absolute",
+          fontFamily:'Poppins-Bold'
         }}
       >
         {title}

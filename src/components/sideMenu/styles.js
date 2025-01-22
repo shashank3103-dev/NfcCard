@@ -6,6 +6,7 @@ import {COLORS} from '../../resources';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // backgroundColor:'red',
   },
 
   logo: {
@@ -18,17 +19,21 @@ const styles = StyleSheet.create({
 
   rowMenu: {
     flexDirection: 'row',
-    paddingVertical: 10,
-    alignItems: 'center',
-    paddingStart: 20,
+    paddingVertical: 5,
+    // alignItems: 'center',
+    // paddingStart: 20,
+    
+    // backgroundColor:'red',
   },
 
   menuText: {
+   
+    borderBottomWidth:1,
     fontSize: 16,
     textAlign: 'justify',
-    fontWeight: '500',
-    color: COLORS.black,
-    marginStart: 20,
+    // fontWeight: '500',
+    
+
   },
 
   versionText: {

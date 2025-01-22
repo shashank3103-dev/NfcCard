@@ -54,3 +54,10 @@ export interface Work {
   occupation?: string;
   base?: string;
 }
+export interface Service {
+  id?: number;
+  type?: string;
+  description?: string;
+  price?: number;
+  image?: string;
+}
