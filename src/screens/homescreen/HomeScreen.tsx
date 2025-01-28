@@ -21,7 +21,7 @@ import { Service } from "../../stateManagement/models/HomeScreenModel";
 import URLManager from "../../networkLayer/URLManager";
 import { storageKeys } from "../../resources/Constants";
 import { getDataFromEncryptedStorage } from "../../resources/Utilities";
-const HomeScreen = async () => {
+const HomeScreen =  () => {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(false);
   async function fetchUserServices() {

@@ -11,8 +11,17 @@ import React from "react";
 import LinearGradient from "react-native-linear-gradient";
 import { COLORS, FONTS, SIZES } from "../../resources/Theme";
 import { ICONS, UTILITIES } from "../../resources";
+import Toast from "react-native-toast-message";
 
 const ProfileScreen = ({ navigation }: any) => {
+ 
+  const showToast = () => {
+    Toast.show({
+      type: 'info', // 'success', 'error', 'info'
+      text1: 'History Selected',
+      text2: 'You have tapped the History section.', // Optional
+    });
+  };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient
@@ -47,7 +56,7 @@ const ProfileScreen = ({ navigation }: any) => {
               resizeMode="contain"
               source={ICONS.PROFILE_ICON}
             ></Image>
-
+<TouchableOpacity onPress={showToast}>
             <View
               style={{
                 width: SIZES.width * 0.8,
@@ -104,6 +113,7 @@ const ProfileScreen = ({ navigation }: any) => {
                 ></Image>
               </View>
             </View>
+            </TouchableOpacity>
             <TouchableOpacity
               style={{
                 width: SIZES.width * 0.8,

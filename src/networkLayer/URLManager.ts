@@ -3,9 +3,9 @@ import {EndPoints, baseUrl} from '../resources/Constants';
 import {
   emailRequestBody,
   refreshTokenBody,
+  userUpdateRequestBody,
   VerifyOtpRequestBody,
 } from './Modals';
-import {Service} from '../stateManagement/models/HomeScreenModel';
 
 export default class URLManager {
   getData(data: number) {
@@ -40,12 +40,12 @@ export default class URLManager {
       .fetchAsyncData(urlPath, {}, 'GET')
       .then((res: any) => res);
   }
-  updateUserDetail(userDetail: any) {
+  updateUserDetail(data: userUpdateRequestBody) {
     let urlService = new URLService();
-    let urlPath = baseUrl + EndPoints.UPDATE_USER_DETAIL;
+    let urlPath = baseUrl + EndPoints.UPDATE_PROFILE;
     console.log(urlPath);
     return urlService
-      .fetchAsyncData(urlPath, userDetail, 'PUT')
+      .fetchAsyncData(urlPath, data, 'PATCH')
       .then((res: any) => res);
   }
   refreshAccessToken(data: refreshTokenBody) {
@@ -61,7 +61,15 @@ export default class URLManager {
     let urlPath = baseUrl + EndPoints.GET_ALL_SERVICES;
     console.log(urlPath);
     return urlService
-      .fetchAsyncData(urlPath,{}, 'GET')
+      .fetchAsyncData(urlPath, {}, 'GET')
+      .then((res: any) => res);
+  }
+  updateUserDetails(data: any) {
+    let urlService = new URLService();
+    let urlPath = baseUrl + EndPoints.UPDATE_PROFILE;
+    console.log(urlPath);
+    return urlService
+      .fetchAsyncData(urlPath, data, 'PATCH')
       .then((res: any) => res);
   }
 }

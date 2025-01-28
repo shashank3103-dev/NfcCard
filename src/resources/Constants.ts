@@ -22,10 +22,11 @@ export const EndPoints = {
   GETDATAENDPOINT: '/user/login/',
   EMAIL_LOGIN: '/user/login/',
   VERIFY_OTP: '/user/verify-otp/',
-  GET_USER_DETAIL: '/getUserDetail',
-  UPDATE_USER_DETAIL: '/updateUser',
+  GET_USER_DETAIL: '/user/RetrieveProfile/',
+
   REFRESH_ACCESS_TOKEN: '/user/token/refresh/',
   GET_ALL_SERVICES: '/services/listServices/',
+  UPDATE_PROFILE: '/user/UpdateProfile/',
 };
 
 export default {

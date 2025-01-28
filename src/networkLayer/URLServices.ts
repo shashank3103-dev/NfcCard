@@ -182,6 +182,7 @@ export default class URLService {
 
       case 'POST':
       case 'PUT':
+      case 'PATCH':
       case 'DELETE':
         this.request = {
           method: method,

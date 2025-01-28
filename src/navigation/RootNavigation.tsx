@@ -9,6 +9,7 @@ import { storageKeys } from "../resources/Constants";
 import Login from "../screens/Authentication/Login";
 import OTPScreen from "../screens/Authentication/OTPScreen";
 import BottomTab from "./BottomTab";
+import DrawerNavigation from "./DrawerNavigation";
 
 const RootStack = createStackNavigator();
 const RootNavigation = () => {
@@ -30,7 +31,7 @@ const RootNavigation = () => {
   };
   return (
     <RootStack.Navigator
-      initialRouteName="BottomTab"
+      initialRouteName="HomeTabs"
       screenOptions={TransitionScreenOptions}
     >
       <RootStack.Screen
@@ -40,7 +41,7 @@ const RootNavigation = () => {
       />
       <RootStack.Screen name="Login" component={Login} />
       <RootStack.Screen name="OTP" component={OTPScreen} />
-      <RootStack.Screen name="BottomTab" component={BottomTab} />
+      <RootStack.Screen name="HomeTabs" component={DrawerNavigation} />
     </RootStack.Navigator>
   );
 };

@@ -18,7 +18,7 @@ import { ICONS, STRINGS } from "../../resources";
 import CustomButton from "../../components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import URLManager from "../../networkLayer/URLManager";
-
+import CustomLoadingBar from "../../components/CustomLoadingBar";
 const Login = () => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
@@ -27,12 +27,10 @@ const Login = () => {
     var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailPattern.test(input);
   }
-
   function isValidEmail(input: string) {
     var basicEmailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return basicEmailPattern.test(input);
   }
-
   const emailLoginApiCall = async () => {
     try {
       setLoading(true);
@@ -53,7 +51,6 @@ const Login = () => {
           console.log(res);
         })
         .catch((e) => {
-          // Alert.alert(e.name, e.message);
           return e.response;
         })
         .finally(() => {
@@ -63,7 +60,6 @@ const Login = () => {
       console.log(er);
     }
   };
-
   function isDataValid() {
     if (email.trim() == "") {
       Alert.alert("Error", "Please enter a valid email address .");
@@ -80,25 +76,32 @@ const Login = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : "height"} // Ensure proper keyboard behavior based on platform
+        behavior={Platform.OS === "ios" ? "padding" : undefined} 
+          keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0} 
       >
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <ScrollView
+      contentContainerStyle={{
+        flexGrow: 1,
+      
+      }}
+      keyboardShouldPersistTaps="handled" 
+      showsVerticalScrollIndicator={false}
+    >
           <LinearGradient
-            colors={[COLORS.white, COLORS.fadePrimary, COLORS.primary]} // Define your gradient colors here
+            colors={[COLORS.white, COLORS.fadePrimary, COLORS.primary]} 
             style={{
               flex: 1,
-              padding: SIZES.padding,
+              // padding: SIZES.padding,
               alignItems: "center",
               justifyContent: "center",
               gap: 20,
             }}
           >
+           
             <View
               style={{
-                // flex: 1,
                 width: SIZES.width * 0.6,
                 height: SIZES.height * 0.3,
-                // backgroundColor: COLORS.red,
                 alignItems: "center",
                 justifyContent: "center",
               }}
@@ -114,9 +117,7 @@ const Login = () => {
             </View>
             <View
               style={{
-                // height: 100,
                 width: SIZES.width * 0.8,
-                // backgroundColor: COLORS.white,
                 justifyContent: "center",
               }}
             >
@@ -140,7 +141,6 @@ const Login = () => {
               <View
                 style={{
                   width: SIZES.width * 0.8,
-                  height: SIZES.height * 0.07,
                   backgroundColor: COLORS.secondary,
                   borderRadius: 30,
                   ...SHADOW,
@@ -149,10 +149,10 @@ const Login = () => {
                 <TextInput
                   style={{
                     width: SIZES.width * 0.8,
-                    height: SIZES.height * 0.07,
                     marginStart: 10,
                     color: COLORS.black,
-                    ...FONTS.body3,
+                    fontFamily:'Poppins-Regular',
+                    fontSize: 15,
                   }}
                   onChangeText={(text: string) => setEmail(text)}
                   keyboardType="email-address"
@@ -163,16 +163,14 @@ const Login = () => {
               <CustomButton
                 style={{
                   width: SIZES.width * 0.8,
-                  // height: '20%',
                 }}
-                title={loading ? "...processing" : "Continue"}
+                title={loading ? "Processing..." : "Continue"}
                 onPress={() => {
                   if (isDataValid()) emailLoginApiCall();
                 }}
                 disabled={loading}
               />
             </View>
-
             <Text
               style={{
                 fontSize: 10,
@@ -218,6 +216,7 @@ const Login = () => {
               ></Image>
             </View>
           </LinearGradient>
+               </ScrollView>
           {loading && (
             <View
               style={{
@@ -231,15 +230,14 @@ const Login = () => {
                 width: "100%",
               }}
             >
-              <ActivityIndicator size={"large"} color={COLORS.primary} />
+              {/* <ActivityIndicator size={"large"} color={COLORS.primary} /> */}
+                <CustomLoadingBar />
             </View>
           )}
-        </ScrollView>
+       
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
-
 export default Login;
-
 const styles = StyleSheet.create({});
