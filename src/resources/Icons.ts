@@ -27,8 +27,18 @@ const PAYMENT_METHOD = require('../assets/images/paymentMethod.png');
 const PERSONAL_DETAILS = require('../assets/images/personalDetails.png');
 const PROFILE_ICON = require('../assets/images/profile.png');
 const CLOSE = require('../assets/images/recycle-bin.png');
+const UNFILLED_HEART = require('../assets/images/wishlist.png');
+const FILLED_HEART = require('../assets/images/filled-heart.png');
+const FILLED_STAR = require('../assets/images/RatingStar.png');
+const UNFILLED_STAR = require('../assets/images/unfilledStar.png');
+const COLORS = require('../assets/images/color.png');
 const FILTER = require('../assets/images/nfcfilter.png');
 export {
+  UNFILLED_STAR,
+  FILLED_HEART,
+  UNFILLED_HEART,
+  FILLED_STAR,
+  COLORS,
   FILTER,
   CLOSE,
   ABOUT,

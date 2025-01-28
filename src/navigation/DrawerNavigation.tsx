@@ -3,6 +3,8 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import BottomTab from "./BottomTab";
 import CustomDrawerContent from "../components/CustomDrawerCustom";
 import Login from "../screens/Authentication/Login";
+import ShopScreen from "../screens/shop/ShopScreen";
+import LeftDrawerContent from "../components/LeftDrawerContent";
 
 const Drawer = createDrawerNavigator();
 

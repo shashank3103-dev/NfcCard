@@ -42,6 +42,8 @@ const RootNavigation = () => {
       <RootStack.Screen name="Login" component={Login} />
       <RootStack.Screen name="OTP" component={OTPScreen} />
       <RootStack.Screen name="HomeTabs" component={DrawerNavigation} />
+
+     
     </RootStack.Navigator>
   );
 };
