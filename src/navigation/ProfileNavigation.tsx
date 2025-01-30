@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import ProfileScreen from "../screens/profile/ProfileScreen";
 import PersonalDetails from "../screens/profile/PersonalDetails";
+import ContactUs from "../screens/profile/ContactUs";
 
 const ProfileStack = createNativeStackNavigator();
 const ProfileNavigation = () => {
@@ -10,6 +11,7 @@ const ProfileNavigation = () => {
     <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
       <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
       <ProfileStack.Screen name="PersonalDetails" component={PersonalDetails} />
+      <ProfileStack.Screen name="ContactUs" component={ContactUs} />
     </ProfileStack.Navigator>
   );
 };

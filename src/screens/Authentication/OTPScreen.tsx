@@ -10,161 +10,75 @@ import {
   Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { COLORS, FONTS, SHADOW, SIZES } from "../../resources/Theme";
+import { COLORS, FONTS, SIZES } from "../../resources/Theme";
 import LinearGradient from "react-native-linear-gradient";
 import CustomButton from "../../components/CustomButton";
 import OtpInputs from "react-native-otp-inputs";
 import { ICONS, UTILITIES } from "../../resources";
 import { storageKeys } from "../../resources/Constants";
 import URLManager from "../../networkLayer/URLManager";
-
 const OtpScreen = ({ navigation, route }: any) => {
   const [otp, setOtp] = useState("");
   const { email } = route.params;
-  const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const [timeLeft, setTimeLeft] = useState(45);
-  const [userId, setUserId] = useState<string>("");
-  const [loading, setLoading] = useState(false);
-  const [confirmedOtp, setConfirmedOtp] = useState<string>("");
 
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (timeLeft === 0) return;
-
     const timer = setTimeout(() => {
       setTimeLeft(timeLeft - 1);
     }, 1000);
-
     return () => clearTimeout(timer);
   }, [timeLeft]);
-  useEffect(() => {
-    if (route?.params?.data) {
-      console.log(route.params);
-      setConfirmedOtp(route.params?.data?.otp);
-      setUserId(route.params?.data?.user_id);
+  async function verifyOTPApiCall() {
+    if (otp.length < 6) {
+      Alert.alert("Error", "Please enter a 6-digit OTP.");
+      return;
     }
-  }, [route.params]);
-
-  // const verifyOTPApiCall = () => {
-  //   try {
-  //     setLoading(true);
-  //     let urlManager = new URLManager();
-  //     const requestData = { email, otp_code: otp };
-  //     console.log("Sending data to verifyOTP API:", requestData);
-
-  //     return urlManager
-  //       .verifyOTP(requestData)
-  //       .then((res) => {
-  //         console.log("API response:", res);
-  //         return res.json() as Promise<any>;
-  //       })
-  //       .then(async (res: any) => {
-  //         if (!res.error) {
-  //           UTILITIES.setDataInStorage(
-  //             storageKeys.kEMAIL,
-  //             JSON.stringify(route.params.email)
-  //           );
-
-  //           await UTILITIES.setDataInEncryptedStorage(
-  //             storageKeys.kACCESS_TOKEN,
-  //             res.access_token
-  //           );
-  //           await UTILITIES.setDataInEncryptedStorage(
-  //             storageKeys.kREFRESH_TOKEN,
-  //             res.refresh_token
-  //           );
-  //           // Alert.alert("Success", res.message);
-            
-  //           navigation.navigate("BottomTab");
-  //         } else {
-  //           if (res.error == "Failed to send OTP")
-  //             Alert.alert("Error", res.error);
-  //         }
-  //         console.log(res);
-  //       })
-  //       .catch((e) => {
-  //         Alert.alert(e.name, e.message);
-  //         return e.response;
-  //       })
-  //       .finally(() => {
-  //         setLoading(false);
-  //       });
-  //   } catch (er) {
-  //     console.log(er);
-  //   }
-  // };
-const verifyOTPApiCall = async () => {
-  try {
     setLoading(true);
     let urlManager = new URLManager();
-    const requestData = { email, otp_code: otp };
-    console.log("Sending data to verifyOTP API:", requestData);
+    try {
+      const response = await urlManager.verifyOTP({ email, otp_code: otp });
+      const res = await response.json();
 
-    const response = await urlManager.verifyOTP(requestData);
-    const res = await response.json();
-
-    if (!res.error) {
-      // Save data in storage
-      UTILITIES.setDataInStorage(
-        storageKeys.kEMAIL,
-        JSON.stringify(route.params.email)
-      );
-
-      await UTILITIES.setDataInEncryptedStorage(
-        storageKeys.kACCESS_TOKEN,
-        res.access_token
-      );
-      await UTILITIES.setDataInEncryptedStorage(
-        storageKeys.kREFRESH_TOKEN,
-        res.refresh_token
-      );
-
-      // Show success alert
-      Alert.alert("Success", res.message, [
-        {
-          text: "OK",
-          onPress: () => {
-            console.log("Navigating to BottomTab...");
-            navigation.navigate("BottomTab");
-          },
-        },
-      ]);
-
-      // Fallback navigation in case Alert doesn't work
-      setTimeout(() => {
-        navigation.navigate("BottomTab");
-      }, 2000);
-    } else {
-      Alert.alert("Error", res.error || "Failed to verify OTP");
-    }
-  } catch (error) {
-    console.error("Verify OTP Error:", error);
-    Alert.alert("Error", error.message || "Something went wrong");
-  } finally {
-    setLoading(false);
-  }
-};
-
-  async function handleOTP() {
-    if (otp.length < 6) {
-      Alert.alert("Error", "Please enter a valid 6-digit OTP");
-    } else if (otp != otp) {
-      Alert.alert("Error", "Invalid OTP");
-    } else {
-      // Directly call the API without comparing OTP locally
-      await verifyOTPApiCall();
+      if (response.ok && !res.error) {
+        console.log("OTP Verified Successfully. Storing tokens...");
+        await UTILITIES.setDataInEncryptedStorage(
+          storageKeys.kEMAIL,
+          route.params.email
+        );
+        await UTILITIES.setDataInEncryptedStorage(
+          storageKeys.kACCESS_TOKEN,
+          res.access_token
+        );
+        await UTILITIES.setDataInEncryptedStorage(
+          storageKeys.kREFRESH_TOKEN,
+          res.refresh_token
+        );
+        setLoading(false);
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "HomeTabs" }],
+        });
+      } else {
+        Alert.alert("Error", res.error || "Invalid OTP. Please try again.");
+      }
+    } catch (error) {
+      Alert.alert("Error", "Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   }
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
-      behavior={Platform.OS === "ios" ? "padding" : "height"} // Ensure proper keyboard behavior based on platform
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <LinearGradient
-        colors={[COLORS.white, COLORS.fadePrimary, COLORS.primary]} // Define your gradient colors here
+        colors={[COLORS.white, COLORS.fadePrimary, COLORS.primary]}
         style={{
           flex: 1,
-          //  padding: SIZES.padding,
         }}
       >
         <View
@@ -186,9 +100,8 @@ const verifyOTPApiCall = async () => {
           <Text
             style={{
               color: COLORS.black,
-           ...FONTS.h0,
+              ...FONTS.h0,
               marginLeft: 20,
-              // marginTop: 70,
             }}
           >
             Enter OTP
@@ -197,7 +110,7 @@ const verifyOTPApiCall = async () => {
             style={{
               color: COLORS.black,
               fontSize: 15,
-             fontFamily:'Poppins-ExtraLight',
+              fontFamily: "Poppins-ExtraLight",
               marginLeft: 20,
             }}
           >
@@ -208,7 +121,10 @@ const verifyOTPApiCall = async () => {
               numberOfInputs={6}
               handleChange={(code) => {
                 console.log(code);
-                setOtp(code);
+                setOtp((prevOtp) => {
+                  if (prevOtp !== code) return code;
+                  return prevOtp;
+                });
               }}
               inputContainerStyles={styles.inputContainer}
               focusStyles={styles.inputContainerFocused}
@@ -223,8 +139,7 @@ const verifyOTPApiCall = async () => {
               textAlign: "center",
               fontSize: 13,
               color: COLORS.black,
-              // fontWeight: "200",
-              fontFamily:'Poppins-ExtraLight',
+              fontFamily: "Poppins-ExtraLight",
             }}
           >
             Haven't got the OTP yet?
@@ -232,7 +147,6 @@ const verifyOTPApiCall = async () => {
           </Text>
           <TouchableOpacity
             disabled={timeLeft != 0}
-            // onPress={resendOTPApiCall}
             onPress={() => {
               setTimeLeft(60);
             }}
@@ -244,12 +158,10 @@ const verifyOTPApiCall = async () => {
             <Text
               style={{
                 marginTop: "3%",
-                // fontWeight: "600",
-                // ...FONTS.body2,
-                fontSize:13,
-                fontFamily:'Poppins-Bold',
+                fontSize: 13,
+                fontFamily: "Poppins-Bold",
                 color: COLORS.white,
-                textTransform:'none',
+                textTransform: "none",
               }}
             >
               {" "}
@@ -261,7 +173,7 @@ const verifyOTPApiCall = async () => {
               width: SIZES.width * 0.8,
             }}
             title={loading ? "Verifying..." : "Continue"}
-            onPress={handleOTP}
+            onPress={verifyOTPApiCall}
             disabled={loading}
           />
         </View>
@@ -269,18 +181,12 @@ const verifyOTPApiCall = async () => {
     </KeyboardAvoidingView>
   );
 };
-
 export default OtpScreen;
-
 const styles = StyleSheet.create({
   otpContainer: {
     marginTop: 30,
     marginBottom: 20,
-    // margin:2,
-    // gap:10,
     padding: 10,
-    // backgroundColor:'red',
-    // ...SHADOW,
   },
   inputContainer: {
     width: 40,
@@ -291,8 +197,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     alignItems: "center",
     justifyContent: "center",
-    // ...SHADOW,
-
     elevation: 5,
   },
   inputContainerFocused: {

@@ -7,10 +7,12 @@ import Toast from "react-native-toast-message";
 
 const App = () => {
   LogBox.ignoreAllLogs();
+   
   return (
     <Provider store={store}>
-       <Toast />
+      
       <MainNavigator />
+       <Toast />
     </Provider>
   );
 };

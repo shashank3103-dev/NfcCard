@@ -31,7 +31,7 @@ const RootNavigation = () => {
   };
   return (
     <RootStack.Navigator
-      initialRouteName="HomeTabs"
+      initialRouteName="SplashScreen"
       screenOptions={TransitionScreenOptions}
     >
       <RootStack.Screen

@@ -77,14 +77,14 @@ const SplashScreen = ({ navigation }: any) => {
     const token = await getDataFromEncryptedStorage(storageKeys.kACCESS_TOKEN);
     console.log("Valid ACCESS_TOKEN found:", token);
     if (token) {
-      navigation.replace("BottomTab");
+      navigation.replace("HomeTabs");
     } else {
       console.log("ACCESS_TOKEN missing. Attempting to refresh...");
       const newToken = await newAccessToken();
 
       if (newToken) {
         console.log("Token refreshed successfully:", newToken);
-        navigation.replace("BottomTab");
+        navigation.replace("HomeTabs");
       } else {
         console.log("Failed to refresh token. Redirecting to Login...");
         navigation.replace("Login");

@@ -8,51 +8,86 @@ import {
   TouchableOpacity,
   FlatList,
   Alert,
+  RefreshControl,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import LinearGradient from "react-native-linear-gradient";
-import { COLORS, FONTS, SIZES } from "../../resources/Theme";
+import { COLORS, FONTS } from "../../resources/Theme";
 import CommonHeader from "../../components/CommonHeader";
 import { ICONS } from "../../resources";
 import ServicesCard from "../../components/homeComponent/ServicesCard";
 import SearchByIndustryCard from "../../components/homeComponent/SearchByIndustryCard";
 import PremiumProductsCard from "../../components/homeComponent/PremiumProductsCard";
-import { Service } from "../../stateManagement/models/HomeScreenModel";
+import { Product, Service } from "../../stateManagement/models/HomeScreenModel";
 import URLManager from "../../networkLayer/URLManager";
-import { storageKeys } from "../../resources/Constants";
-import { getDataFromEncryptedStorage } from "../../resources/Utilities";
-const HomeScreen =  () => {
+const HomeScreen = () => {
   const [services, setServices] = useState<Service[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
-  async function fetchUserServices() {
+  const [refreshing, setRefreshing] = useState(false);
+  async function fetchProductsDetailApi() {
     try {
-      setLoading(true); 
-      const urlManager = new URLManager();
-      const response = await urlManager.getAllServices();
-      if (!response.ok) {
-        throw new Error(`Failed to fetch services: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log(data, "USER SERVICES");
-      if (Array.isArray(data)) {
-        setServices(data);
-      } else if (data?.data?.services) {
-        setServices(data.data.services);
-      } else {
-        console.log("Unexpected data format", data);
-        setServices([]); 
-      }
-    } catch (error) {
-      console.error("Error fetching user services:", error);
-      Alert.alert("Error",  "Unable to fetch services.");
-    } finally {
-      setLoading(false); 
+      setLoading(true);
+      let urlManager = new URLManager();
+      return urlManager
+        .getAllProducts()
+        .then((res) => {
+          return res.json() as Promise<any>;
+        })
+        .then(async (data: any) => {
+          const premiumProducts = Array.isArray(data)
+            ? data.filter((product) => product.IsPremium === true)
+            : [];
+          setProducts(premiumProducts);
+        })
+        .catch((e) => {
+          Alert.alert(e.name, e.message);
+          return e.response;
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } catch (er) {
+      console.log(er);
     }
   }
+  async function fetchUserServices() {
+    try {
+      setLoading(true);
+      let urlManager = new URLManager();
+      return urlManager
+        .getAllServices()
+        .then((res) => {
+          return res.json() as Promise<any>;
+        })
+        .then(async (data: any) => {
+          setServices(data);
+        })
+        .catch((e) => {
+          Alert.alert(e.name, e.message);
+          return e.response;
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } catch (er) {
+      console.log(er);
+    }
+  }
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    try {
+      await Promise.all([fetchUserServices(), fetchProductsDetailApi()]);
+    } catch (error) {
+      console.error("Refresh failed:", error);
+    } finally {
+      setRefreshing(false);
+    }
+  }, []);
   useEffect(() => {
     fetchUserServices();
+    fetchProductsDetailApi();
   }, []);
- 
   return (
     <SafeAreaView
       style={{
@@ -61,14 +96,22 @@ const HomeScreen =  () => {
     >
       <CommonHeader title={""} />
       <LinearGradient
-        colors={["#FFF8DE", "#FFFF", "#FFF8DE"]} 
+        colors={["#FFF8DE", "#FFFF", "#FFF8DE"]}
         style={{
           flex: 1,
         }}
       >
-        <ScrollView 
-        contentContainerStyle={{ flexGrow: 1 }}
-        showsVerticalScrollIndicator={false}>
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={[COLORS.primary]}
+            />
+          }
+        >
           <View>
             <Image
               style={{
@@ -83,8 +126,6 @@ const HomeScreen =  () => {
             <Text
               style={{
                 ...FONTS.body4,
-                // color: COLORS.black,
-                // fontWeight: "700",
                 marginHorizontal: "4%",
               }}
             >
@@ -94,7 +135,6 @@ const HomeScreen =  () => {
               style={{
                 ...FONTS.body6,
                 color: COLORS.black,
-              
                 marginHorizontal: "4%",
               }}
             >
@@ -115,7 +155,7 @@ const HomeScreen =  () => {
                   item?.id?.toString() || index.toString()
                 }
                 renderItem={({ item }) => {
-                  if (!item) return null; 
+                  if (!item) return null;
                   return (
                     <TouchableOpacity activeOpacity={1}>
                       <ServicesCard service={item} />
@@ -129,7 +169,6 @@ const HomeScreen =  () => {
             style={{
               ...FONTS.body4,
               color: COLORS.black,
-              // fontWeight: "700",
               marginHorizontal: "4%",
               marginVertical: "2%",
             }}
@@ -192,7 +231,6 @@ const HomeScreen =  () => {
             style={{
               ...FONTS.body4,
               color: COLORS.black,
-              // fontWeight: "700",
               marginHorizontal: "4%",
               marginVertical: "2%",
             }}
@@ -203,7 +241,6 @@ const HomeScreen =  () => {
             style={{
               ...FONTS.body6,
               color: COLORS.black,
-              // fontWeight: "400",
               marginHorizontal: "4%",
               marginTop: -10,
               marginVertical: "2%",
@@ -218,48 +255,16 @@ const HomeScreen =  () => {
             }}
           >
             <FlatList
-              data={[
-                {
-                  id: 1,
-                  price: 1000.0,
-                  name: "Writing & Editing",
-                  imageSource: ICONS.PHOTOGRAPHY,
-                  off: "1000",
-                },
-                {
-                  id: 2,
-                  price: 2000.0,
-                  name: "Photography",
-                  imageSource: ICONS.BUSINESS_CARD,
-                  off: "5000",
-                },
-                {
-                  id: 3,
-                  price: 3000.0,
-                  name: "Clothing",
-                  imageSource: ICONS.PREMIUM,
-                  off: "4000",
-                },
-                {
-                  id: 4,
-                  price: 5000.0,
-                  name: "Travel Agencies ",
-                  imageSource: ICONS.CATALOG,
-                  off: "3000",
-                },
-              ]}
+              data={products}
               horizontal
               showsHorizontalScrollIndicator={false}
-              renderItem={({ item }) => (
-                <TouchableOpacity activeOpacity={1}>
-                  <PremiumProductsCard
-                    name={item.name}
-                    price={item.price}
-                    off={item.off}
-                    imageSource={item.imageSource}
-                  />
-                </TouchableOpacity>
-              )}
+              renderItem={({ item }) => {
+                return (
+                  <TouchableOpacity activeOpacity={1}>
+                    <PremiumProductsCard products={item} />
+                  </TouchableOpacity>
+                );
+              }}
             />
           </View>
         </ScrollView>

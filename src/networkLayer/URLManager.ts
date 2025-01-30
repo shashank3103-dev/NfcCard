@@ -1,6 +1,7 @@
 import URLService from './URLServices';
 import {EndPoints, baseUrl} from '../resources/Constants';
 import {
+  ContactFormBody,
   emailRequestBody,
   refreshTokenBody,
   userUpdateRequestBody,
@@ -45,7 +46,7 @@ export default class URLManager {
     let urlPath = baseUrl + EndPoints.UPDATE_PROFILE;
     console.log(urlPath);
     return urlService
-      .fetchAsyncData(urlPath, data, 'PATCH')
+      .fetchAsyncData(urlPath, data, 'PUT')
       .then((res: any) => res);
   }
   refreshAccessToken(data: refreshTokenBody) {
@@ -64,12 +65,36 @@ export default class URLManager {
       .fetchAsyncData(urlPath, {}, 'GET')
       .then((res: any) => res);
   }
+  getAllBanners() {
+    let urlService = new URLService();
+    let urlPath = baseUrl + EndPoints.GET_ALL_BANNERS;
+    console.log(urlPath);
+    return urlService
+      .fetchAsyncData(urlPath, {}, 'GET')
+      .then((res: any) => res);
+  }
   updateUserDetails(data: any) {
     let urlService = new URLService();
     let urlPath = baseUrl + EndPoints.UPDATE_PROFILE;
     console.log(urlPath);
     return urlService
-      .fetchAsyncData(urlPath, data, 'PATCH')
+      .fetchAsyncData(urlPath, data, 'PUT')
+      .then((res: any) => res);
+  }
+  contactUs(data: ContactFormBody) {
+    let urlService = new URLService();
+    let urlPath = baseUrl + EndPoints.CONTACT_US;
+    console.log(urlPath);
+    return urlService
+      .fetchAsyncData(urlPath, data, 'POST')
+      .then((res: any) => res);
+  }
+  getAllProducts() {
+    let urlService = new URLService();
+    let urlPath = baseUrl + EndPoints.GET_ALL_PRODUCTS;
+    console.log(urlPath);
+    return urlService
+      .fetchAsyncData(urlPath, {}, 'GET')
       .then((res: any) => res);
   }
 }

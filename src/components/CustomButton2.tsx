@@ -13,13 +13,15 @@ import {COLORS, ICONS} from '../resources';
 interface BtnProps {
   style: any;
   title: string;
+  disabled: any;
   onPress: () => void;
 }
 const CutomButton = (props: BtnProps) => {
-  const {style, title, onPress} = props;
+  const {style, title,disabled, onPress} = props;
   return (
     <TouchableOpacity
       onPress={onPress}
+         disabled={disabled}
       style={[
         {
           backgroundColor: COLORS.primary,

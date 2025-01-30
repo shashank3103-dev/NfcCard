@@ -2,24 +2,24 @@ import React from "react";
 import { View, Text, Image } from "react-native";
 import { COLORS, SHADOW } from "../../resources";
 import { SHADOW_RIGHT } from "../../resources/Theme";
+import { Product } from "../../stateManagement/models/HomeScreenModel";
 // import {defaultShadowNew} from '../../utils/BaseUtils';
 
 // Updated interface to reflect the category data
 interface CategoryProps {
-  price: any;
-  name: string;
-  off: string;
-  imageSource: any;
+products:Product;
   style?: any; // Optional style prop
 }
 
 const ServicesCard: React.FC<CategoryProps> = ({
-  name,
-  price,
-  imageSource,
+ products,
   style,
-  off,
+  
 }) => {
+  const imageSource = products?.image || "https://via.placeholder.com/60";
+  const productName = products?.title || "Unknown";
+  const productPrice = products?.description !== undefined ? products.description : "N/A";
+
   return (
     <View
       style={{
@@ -37,7 +37,7 @@ const ServicesCard: React.FC<CategoryProps> = ({
       }}
     >
       <Image
-        source={imageSource} // Use the image URL from the API
+        source={{uri:imageSource}} // Use the image URL from the API
         resizeMode="contain"
         style={{
                 marginTop:10,
@@ -70,9 +70,11 @@ const ServicesCard: React.FC<CategoryProps> = ({
             fontFamily:'Poppins-Regular',
             textTransform: "capitalize",
           }}
+          numberOfLines={2}
         >
-          ₹ {price}.00
-         
+          
+          {/* ₹ {price}.00 */}
+         {productPrice}
         </Text>
       </View>
       <Text
@@ -86,7 +88,7 @@ const ServicesCard: React.FC<CategoryProps> = ({
 
         }}
       >
-        {name}
+        {productName}
       </Text>
     </View>
   );

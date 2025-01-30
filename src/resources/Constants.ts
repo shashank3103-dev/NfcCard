@@ -23,10 +23,12 @@ export const EndPoints = {
   EMAIL_LOGIN: '/user/login/',
   VERIFY_OTP: '/user/verify-otp/',
   GET_USER_DETAIL: '/user/RetrieveProfile/',
-
+  GET_ALL_BANNERS: '/banner/listBanner/',
   REFRESH_ACCESS_TOKEN: '/user/token/refresh/',
   GET_ALL_SERVICES: '/services/listServices/',
   UPDATE_PROFILE: '/user/UpdateProfile/',
+  CONTACT_US: '/contact/contact-us/',
+  GET_ALL_PRODUCTS : '/products/listProducts/',
 };
 
 export default {

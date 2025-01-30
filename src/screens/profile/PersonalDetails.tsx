@@ -21,6 +21,8 @@ import { getDataFromEncryptedStorage } from "../../resources/Utilities";
 import DatePicker from "react-native-date-picker";
 import ImageSelectionModal from "../../components/ImagePickerModel";
 import URLManager from "../../networkLayer/URLManager";
+import Toast from "react-native-toast-message";
+import { userUpdateRequestBody } from "../../networkLayer/Modals";
 interface SelectedImage {
   uri: string;
   type: string;
@@ -63,43 +65,41 @@ const PersonalDetails = ({ navigation }: any) => {
     setOpenImagePicker(false);
     setSelectedImage(imageFile);
   }
-  const formatDate = (dob: string | number | Date) => {
-    if (!dob) return "";
-    const d = new Date(dob);
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, "0");
-    const day = String(d.getDate()).padStart(2, "0");
+
+  const formatDate = (date: Date | string | null | undefined) => {
+    if (!date) return ""; // Return empty string if no date is provided
+
+    const parsedDate = date instanceof Date ? date : new Date(date);
+    if (isNaN(parsedDate.getTime())) return ""; // Handle invalid date
+
+    const year = parsedDate.getFullYear();
+    const month = String(parsedDate.getMonth() + 1).padStart(2, "0");
+    const day = String(parsedDate.getDate()).padStart(2, "0");
+
     return `${year}-${month}-${day}`;
   };
-  const formattedDob = dob ? formatDate(dob) : "";
-  async function updateUserProfileDetails() {
+
+  async function handleUpdateProfileDetail() {
     try {
+      if (!name.trim() || !phoneNumber.trim() || !dob || !location.trim()) {
+        Alert.alert("Error", "Please fill in all required fields.");
+        return;
+      }
       setLoading(true);
-      let body: {
-        fullName: string;
-        phone_number: string;
-        dob: string;
-        address: string;
-        profile_pic?: {
-          uri: string;
-          type: string;
-          name: string;
-        };
-      } = {
+      let formattedDob = dob ? formatDate(dob) : "";
+      let body: userUpdateRequestBody = {
         fullName: name,
         phone_number: phoneNumber,
         dob: formattedDob,
         address: location,
       };
-      if (selectedImage) {
-        body.profile_pic = {
-          uri: selectedImage.uri,
-          type: selectedImage.type || "image/jpeg",
-          name: selectedImage.fileName || `profile_${Date.now()}.jpg`,
-        };
-      }
-      console.log("Sending data to API:", JSON.stringify(body));
-
+      // if (selectedImage) {
+      //   body.profile_pic = {
+      //     uri: selectedImage.uri,
+      //     type: selectedImage.type,
+      //     name: selectedImage.fileName || `profile_${Date.now()}.jpg`,
+      //   };
+      // }
       let urlManager = new URLManager();
       return urlManager
         .updateUserDetail(body)
@@ -108,9 +108,8 @@ const PersonalDetails = ({ navigation }: any) => {
           return res.json() as Promise<any>;
         })
         .then(async (res: any) => {
-          if (!res.success) {
-            Alert.alert("Success!!", "Profile Updated successfully");
-            navigation.goBack();
+          if (!res.message) {
+            Alert.alert("Success", "Profile Updated successfully");
           }
           console.log(res, "updated USER DETAIL");
         })
@@ -135,22 +134,18 @@ const PersonalDetails = ({ navigation }: any) => {
           console.log(res);
           return res.json() as Promise<any>;
         })
-        
-        .then(async (res: any) => {
-    
-          console.log(res, "USER DETAIL");
 
-          if (res.ok) {
-            setName(res.fullName ?? "");
-            setDob(res.dob ?? "");
-            setPhoneNumber(res.phone_number ?? "");
-            setLoading(res.address ?? "");
-            setSelectedImage({
-              uri: res.profile_image ?? "",
-              name: "profile Image",
-              type: "image",
-            });
-          }
+        .then(async (data: any) => {
+          console.log(data, "USER DETAIL");
+          setName(data.fullName ?? "");
+          setDob(data.dob ?? "");
+          setPhoneNumber(data.phone_number ?? "");
+          setLocation(data.address ?? "");
+          setSelectedImage({
+            uri: data.profile_pic ?? "",
+            // name: "profile Image",
+            type: "image",
+          });
         })
         .catch((e) => {
           Alert.alert(e.name, e.message);
@@ -385,7 +380,7 @@ const PersonalDetails = ({ navigation }: any) => {
                         { color: dob ? COLORS.black : "#5A5A5A" },
                       ]}
                     >
-                      {dob ? dob.toLocaleDateString() : "Date of Birth"}
+                      {dob ? formatDate(new Date(dob)) : "Date of Birth"}
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -395,7 +390,7 @@ const PersonalDetails = ({ navigation }: any) => {
                     borderRadius: 5,
                   }}
                   title={"Save Changes"}
-                  onPress={updateUserProfileDetails}
+                  onPress={handleUpdateProfileDetail}
                 />
               </View>
             </View>
@@ -404,7 +399,7 @@ const PersonalDetails = ({ navigation }: any) => {
             modal
             mode="date"
             open={openDateModal}
-            date={new Date()}
+            date={dob ? new Date(dob) : new Date()}
             onConfirm={(date) => {
               setOpenDateModal(false);
               setDob(date);

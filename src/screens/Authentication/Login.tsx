@@ -7,31 +7,24 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
-  ActivityIndicator,
   ScrollView,
   SafeAreaView,
 } from "react-native";
 import React, { useState } from "react";
 import { COLORS, FONTS, SHADOW, SIZES } from "../../resources/Theme";
 import LinearGradient from "react-native-linear-gradient";
-import { ICONS, STRINGS } from "../../resources";
+import { ICONS } from "../../resources";
 import CustomButton from "../../components/CustomButton";
-import { useNavigation } from "@react-navigation/native";
 import URLManager from "../../networkLayer/URLManager";
 import CustomLoadingBar from "../../components/CustomLoadingBar";
-const Login = () => {
-  const navigation = useNavigation();
+const Login = ({ navigation }: any) => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
-  function isEmailAddress(input: string) {
-    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(input);
-  }
   function isValidEmail(input: string) {
     var basicEmailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return basicEmailPattern.test(input);
   }
-  const emailLoginApiCall = async () => {
+  async function emailLoginApiCall() {
     try {
       setLoading(true);
       let urlManager = new URLManager();
@@ -42,13 +35,11 @@ const Login = () => {
         })
         .then((res) => {
           if (!res.error) {
-            console.log(res);
             navigation.navigate("OTP", { email: email, ...res });
           } else {
             if (res.error == "Failed to send OTP")
               Alert.alert("Error", res.error);
           }
-          console.log(res);
         })
         .catch((e) => {
           return e.response;
@@ -59,13 +50,12 @@ const Login = () => {
     } catch (er) {
       console.log(er);
     }
-  };
+  }
   function isDataValid() {
     if (email.trim() == "") {
       Alert.alert("Error", "Please enter a valid email address .");
       return false;
     }
-    console.log(!isEmailAddress(email));
     if (!isValidEmail(email)) {
       Alert.alert("Error", "Please enter a valid email address.");
       return false;
@@ -76,28 +66,25 @@ const Login = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : undefined} 
-          keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0} 
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
       >
         <ScrollView
-      contentContainerStyle={{
-        flexGrow: 1,
-      
-      }}
-      keyboardShouldPersistTaps="handled" 
-      showsVerticalScrollIndicator={false}
-    >
+          contentContainerStyle={{
+            flexGrow: 1,
+          }}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
           <LinearGradient
-            colors={[COLORS.white, COLORS.fadePrimary, COLORS.primary]} 
+            colors={[COLORS.white, COLORS.fadePrimary, COLORS.primary]}
             style={{
               flex: 1,
-              // padding: SIZES.padding,
               alignItems: "center",
               justifyContent: "center",
               gap: 20,
             }}
           >
-           
             <View
               style={{
                 width: SIZES.width * 0.6,
@@ -148,10 +135,12 @@ const Login = () => {
               >
                 <TextInput
                   style={{
-                    width: SIZES.width * 0.8,
+                    // width: SIZES.width * 0.8,
+                    height: 50,
                     marginStart: 10,
+                    marginEnd: 10,
                     color: COLORS.black,
-                    fontFamily:'Poppins-Regular',
+                    fontFamily: "Poppins-Regular",
                     fontSize: 15,
                   }}
                   onChangeText={(text: string) => setEmail(text)}
@@ -176,7 +165,7 @@ const Login = () => {
                 fontSize: 10,
                 marginTop: 30,
                 color: COLORS.black,
-                fontFamily:'Poppins-Regular'
+                fontFamily: "Poppins-Regular",
               }}
             >
               Or Login with
@@ -216,25 +205,23 @@ const Login = () => {
               ></Image>
             </View>
           </LinearGradient>
-               </ScrollView>
-          {loading && (
-            <View
-              style={{
-                backgroundColor: "transparent",
-                flex: 1,
-                position: "absolute",
-                zIndex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-                height: "100%",
-                width: "100%",
-              }}
-            >
-              {/* <ActivityIndicator size={"large"} color={COLORS.primary} /> */}
-                <CustomLoadingBar />
-            </View>
-          )}
-       
+        </ScrollView>
+        {loading && (
+          <View
+            style={{
+              backgroundColor: "transparent",
+              flex: 1,
+              position: "absolute",
+              zIndex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100%",
+              width: "100%",
+            }}
+          >
+            <CustomLoadingBar />
+          </View>
+        )}
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

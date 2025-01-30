@@ -395,6 +395,124 @@ const ProfileScreen = ({ navigation }: any) => {
                   source={ICONS.ARROW}
                 ></Image>
               </View>
+              
+            </View>
+             <View
+              style={{
+                width: SIZES.width * 0.8,
+                height: 30,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                // backgroundColor: "green",
+                marginTop: 20,
+              }}
+            >
+              <View
+                style={{
+                  width: 30,
+                  height: 30,
+                  borderRadius: 20,
+                  backgroundColor: COLORS.gray,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Image
+                  style={{
+                    width: 20,
+                    height: 20,
+                  }}
+                  resizeMode="contain"
+                  source={ICONS.HELP_SUPPORT}
+                ></Image>
+              </View>
+              <View
+                style={{
+                  width: SIZES.width * 0.65,
+                  height: 30,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  // backgroundColor: "red",
+                }}
+              >
+                <Text
+                  style={{
+                   ...FONTS.body2,
+                  }}
+                >
+                  Query
+                </Text>
+                <Image
+                  style={{
+                    width: 15,
+                    height: 15,
+                  }}
+                  resizeMode="contain"
+                  source={ICONS.ARROW}
+                ></Image>
+              </View>
+              
+            </View>
+             <View
+              style={{
+                width: SIZES.width * 0.8,
+                height: 30,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                // backgroundColor: "green",
+                marginTop: 20,
+              }}
+            >
+              <View
+                style={{
+                  width: 30,
+                  height: 30,
+                  borderRadius: 20,
+                  backgroundColor: COLORS.gray,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Image
+                  style={{
+                    width: 20,
+                    height: 20,
+                  }}
+                  resizeMode="contain"
+                  source={ICONS.HELP_SUPPORT}
+                ></Image>
+              </View>
+              <TouchableOpacity
+                style={{
+                  width: SIZES.width * 0.65,
+                  height: 30,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  // backgroundColor: "red",
+                }}
+                onPress={()=>{
+                  navigation.navigate("ContactUs")
+                }}
+              >
+                <Text
+                  style={{
+                   ...FONTS.body2,
+                  }}
+                >
+                  Contact Us
+                </Text>
+                <Image
+                  style={{
+                    width: 15,
+                    height: 15,
+                  }}
+                  resizeMode="contain"
+                  source={ICONS.ARROW}
+                ></Image>
+              </TouchableOpacity>
+              
             </View>
             <View
               style={{
