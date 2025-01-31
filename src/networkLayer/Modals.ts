@@ -13,8 +13,7 @@ interface userUpdateRequestBody {
   phone_number?: string;
   dob?: string;
   address?: string;
-  profile_pic?:any;
-  
+  profile_pic?: any;
 }
 interface ContactFormBody {
   Fullname: string;
@@ -22,9 +21,16 @@ interface ContactFormBody {
   phoneNumber: string;
   message: string;
 }
-
+interface createTicketBody {
+  query: string;
+  Fullname: string;
+  email: string;
+  message: string;
+  phoneNumber: string;
+}
 
 export type {
+  createTicketBody,
   ContactFormBody,
   emailRequestBody,
   VerifyOtpRequestBody,

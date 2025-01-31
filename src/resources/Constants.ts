@@ -28,7 +28,8 @@ export const EndPoints = {
   GET_ALL_SERVICES: '/services/listServices/',
   UPDATE_PROFILE: '/user/UpdateProfile/',
   CONTACT_US: '/contact/contact-us/',
-  GET_ALL_PRODUCTS : '/products/listProducts/',
+  GET_ALL_PRODUCTS: '/products/listProducts/',
+  QUERY_TICKET: '/query_ticket/createTicket/',
 };
 
 export default {

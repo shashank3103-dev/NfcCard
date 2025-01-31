@@ -2,6 +2,7 @@ import URLService from './URLServices';
 import {EndPoints, baseUrl} from '../resources/Constants';
 import {
   ContactFormBody,
+  createTicketBody,
   emailRequestBody,
   refreshTokenBody,
   userUpdateRequestBody,
@@ -84,6 +85,14 @@ export default class URLManager {
   contactUs(data: ContactFormBody) {
     let urlService = new URLService();
     let urlPath = baseUrl + EndPoints.CONTACT_US;
+    console.log(urlPath);
+    return urlService
+      .fetchAsyncData(urlPath, data, 'POST')
+      .then((res: any) => res);
+  }
+  createTicket(data: createTicketBody) {
+    let urlService = new URLService();
+    let urlPath = baseUrl + EndPoints.QUERY_TICKET;
     console.log(urlPath);
     return urlService
       .fetchAsyncData(urlPath, data, 'POST')

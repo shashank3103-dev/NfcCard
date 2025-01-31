@@ -14,12 +14,11 @@ import { ICONS, UTILITIES } from "../../resources";
 import Toast from "react-native-toast-message";
 
 const ProfileScreen = ({ navigation }: any) => {
- 
   const showToast = () => {
     Toast.show({
-      type: 'info', // 'success', 'error', 'info'
-      text1: 'History Selected',
-      text2: 'You have tapped the History section.', // Optional
+      type: "info", // 'success', 'error', 'info'
+      text1: "History Selected",
+      text2: "You have tapped the History section.", // Optional
     });
   };
   return (
@@ -37,7 +36,7 @@ const ProfileScreen = ({ navigation }: any) => {
               alignItems: "center",
               justifyContent: "center",
               padding: SIZES.padding,
-              flex:1,
+              flex: 1,
             }}
           >
             <Text
@@ -56,70 +55,70 @@ const ProfileScreen = ({ navigation }: any) => {
               resizeMode="contain"
               source={ICONS.PROFILE_ICON}
             ></Image>
-<TouchableOpacity onPress={showToast}>
-            <View
-              style={{
-                width: SIZES.width * 0.8,
-                height: 30,
-                flexDirection: "row",
-                justifyContent: "space-between",
-                // backgroundColor: "green",
-                marginTop: 20,
-              }}
-            >
+            <TouchableOpacity onPress={showToast}>
               <View
                 style={{
-                  width: 30,
-                  height: 30,
-                  borderRadius: 20,
-                  backgroundColor: COLORS.gray,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Image
-                  style={{
-                    width: 20,
-                    height: 20,
-                  }}
-                  resizeMode="contain"
-                  source={ICONS.HISTORY}
-                ></Image>
-              </View>
-              <View
-                style={{
-                  width: SIZES.width * 0.65,
+                  width: SIZES.width * 0.8,
                   height: 30,
                   flexDirection: "row",
                   justifyContent: "space-between",
-                  alignItems: "center",
-                  // backgroundColor: "red",
+                  // backgroundColor: "green",
+                  marginTop: 20,
                 }}
               >
-                <Text
+                <View
                   style={{
-                   ...FONTS.body2,
+                    width: 30,
+                    height: 30,
+                    borderRadius: 20,
+                    backgroundColor: COLORS.gray,
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
-                  History
-                </Text>
-                <Image
+                  <Image
+                    style={{
+                      width: 20,
+                      height: 20,
+                    }}
+                    resizeMode="contain"
+                    source={ICONS.HISTORY}
+                  ></Image>
+                </View>
+                <View
                   style={{
-                    width: 15,
-                    height: 15,
+                    width: SIZES.width * 0.65,
+                    height: 30,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    // backgroundColor: "red",
                   }}
-                  resizeMode="contain"
-                  source={ICONS.ARROW}
-                ></Image>
+                >
+                  <Text
+                    style={{
+                      ...FONTS.body2,
+                    }}
+                  >
+                    History
+                  </Text>
+                  <Image
+                    style={{
+                      width: 15,
+                      height: 15,
+                    }}
+                    resizeMode="contain"
+                    source={ICONS.ARROW}
+                  ></Image>
+                </View>
               </View>
-            </View>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
                 width: SIZES.width * 0.8,
                 height: 30,
                 flexDirection: "row",
-               
+
                 justifyContent: "space-between",
                 // backgroundColor: "green",
                 marginTop: 20,
@@ -213,7 +212,7 @@ const ProfileScreen = ({ navigation }: any) => {
               >
                 <Text
                   style={{
-                   ...FONTS.body2,
+                    ...FONTS.body2,
                   }}
                 >
                   Address
@@ -269,7 +268,7 @@ const ProfileScreen = ({ navigation }: any) => {
               >
                 <Text
                   style={{
-                   ...FONTS.body2,
+                    ...FONTS.body2,
                   }}
                 >
                   Payment Method
@@ -325,7 +324,7 @@ const ProfileScreen = ({ navigation }: any) => {
               >
                 <Text
                   style={{
-                ...FONTS.body2,
+                    ...FONTS.body2,
                   }}
                 >
                   About
@@ -381,7 +380,7 @@ const ProfileScreen = ({ navigation }: any) => {
               >
                 <Text
                   style={{
-                   ...FONTS.body2,
+                    ...FONTS.body2,
                   }}
                 >
                   Help and Support
@@ -395,9 +394,8 @@ const ProfileScreen = ({ navigation }: any) => {
                   source={ICONS.ARROW}
                 ></Image>
               </View>
-              
             </View>
-             <View
+            <TouchableOpacity
               style={{
                 width: SIZES.width * 0.8,
                 height: 30,
@@ -405,6 +403,9 @@ const ProfileScreen = ({ navigation }: any) => {
                 justifyContent: "space-between",
                 // backgroundColor: "green",
                 marginTop: 20,
+              }}
+              onPress={()=>{
+                navigation.navigate('Query')
               }}
             >
               <View
@@ -438,7 +439,7 @@ const ProfileScreen = ({ navigation }: any) => {
               >
                 <Text
                   style={{
-                   ...FONTS.body2,
+                    ...FONTS.body2,
                   }}
                 >
                   Query
@@ -452,9 +453,8 @@ const ProfileScreen = ({ navigation }: any) => {
                   source={ICONS.ARROW}
                 ></Image>
               </View>
-              
-            </View>
-             <View
+            </TouchableOpacity>
+            <TouchableOpacity
               style={{
                 width: SIZES.width * 0.8,
                 height: 30,
@@ -463,6 +463,9 @@ const ProfileScreen = ({ navigation }: any) => {
                 // backgroundColor: "green",
                 marginTop: 20,
               }}
+              onPress={() => {
+                  navigation.navigate("ContactUs");
+                }}
             >
               <View
                 style={{
@@ -483,7 +486,7 @@ const ProfileScreen = ({ navigation }: any) => {
                   source={ICONS.HELP_SUPPORT}
                 ></Image>
               </View>
-              <TouchableOpacity
+              <View
                 style={{
                   width: SIZES.width * 0.65,
                   height: 30,
@@ -492,13 +495,11 @@ const ProfileScreen = ({ navigation }: any) => {
                   alignItems: "center",
                   // backgroundColor: "red",
                 }}
-                onPress={()=>{
-                  navigation.navigate("ContactUs")
-                }}
+                
               >
                 <Text
                   style={{
-                   ...FONTS.body2,
+                    ...FONTS.body2,
                   }}
                 >
                   Contact Us
@@ -511,9 +512,8 @@ const ProfileScreen = ({ navigation }: any) => {
                   resizeMode="contain"
                   source={ICONS.ARROW}
                 ></Image>
-              </TouchableOpacity>
-              
-            </View>
+              </View>
+            </TouchableOpacity>
             <View
               style={{
                 width: SIZES.width * 0.8,
@@ -560,7 +560,7 @@ const ProfileScreen = ({ navigation }: any) => {
               >
                 <Text
                   style={{
-                  ...FONTS.body2,
+                    ...FONTS.body2,
                   }}
                 >
                   Log out
