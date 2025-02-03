@@ -9,8 +9,9 @@ import {
   FlatList,
   Alert,
   RefreshControl,
+  Dimensions,
 } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import LinearGradient from "react-native-linear-gradient";
 import { COLORS, FONTS } from "../../resources/Theme";
 import CommonHeader from "../../components/CommonHeader";
@@ -18,13 +19,24 @@ import { ICONS } from "../../resources";
 import ServicesCard from "../../components/homeComponent/ServicesCard";
 import SearchByIndustryCard from "../../components/homeComponent/SearchByIndustryCard";
 import PremiumProductsCard from "../../components/homeComponent/PremiumProductsCard";
-import { Product, Service } from "../../stateManagement/models/HomeScreenModel";
+import {
+  Banner,
+  Product,
+  Service,
+} from "../../stateManagement/models/HomeScreenModel";
 import URLManager from "../../networkLayer/URLManager";
+
+const { width } = Dimensions.get("window");
+
 const HomeScreen = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const [services, setServices] = useState<Service[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
+  const [banner, setBanner] = useState<Banner[]>([]);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const flatListRef = useRef<FlatList>(null);
   async function fetchProductsDetailApi() {
     try {
       setLoading(true);
@@ -74,10 +86,52 @@ const HomeScreen = () => {
       console.log(er);
     }
   }
+  async function fetchHomeBanners() {
+    try {
+      setLoading(true);
+      let urlManager = new URLManager();
+      return urlManager
+        .getAllBanners()
+        .then((res) => {
+          return res.json() as Promise<any>;
+        })
+        .then(async (data: any) => {
+          console.log(data, "BANNERS");
+          setBanner(data);
+        })
+        .catch((e) => {
+          Alert.alert(e.name, e.message);
+          return e.response;
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } catch (er) {
+      console.log(er);
+    }
+  }
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (banner.length > 0) {
+        const nextIndex = (currentIndex + 1) % banner.length;
+        setCurrentIndex(nextIndex);
+        flatListRef.current?.scrollToIndex({
+          index: nextIndex,
+          animated: true,
+        });
+      }
+    }, 3000); // Change slide every 3 seconds
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, [currentIndex, banner]);
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     try {
-      await Promise.all([fetchUserServices(), fetchProductsDetailApi()]);
+      await Promise.all([
+        fetchUserServices(),
+        fetchProductsDetailApi(),
+        fetchHomeBanners(),
+      ]);
     } catch (error) {
       console.error("Refresh failed:", error);
     } finally {
@@ -85,6 +139,7 @@ const HomeScreen = () => {
     }
   }, []);
   useEffect(() => {
+    fetchHomeBanners();
     fetchUserServices();
     fetchProductsDetailApi();
   }, []);
@@ -112,7 +167,35 @@ const HomeScreen = () => {
             />
           }
         >
-          <View>
+          <FlatList
+            ref={flatListRef}
+            data={banner}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item, index) =>
+              item.id?.toString() || index.toString()
+            }
+            pagingEnabled
+            scrollEventThrottle={16}
+            getItemLayout={(data, index) => ({
+              length: width - 20,
+              offset: (width - 20) * index,
+              index,
+            })}
+            renderItem={({ item }) => (
+              <Image
+                source={{ uri: item.image }} // 🔥 Ensure `image` key exists in your API response
+                style={{
+                  width: width - 20,
+                  height: 150,
+                  marginHorizontal: 10,
+                  borderRadius: 10,
+                }}
+                resizeMode="cover"
+              />
+            )}
+          />
+          {/* <View>
             <Image
               style={{
                 width: "100%",
@@ -121,7 +204,7 @@ const HomeScreen = () => {
               resizeMode="contain"
               source={ICONS.BANNER}
             ></Image>
-          </View>
+          </View> */}
           <View>
             <Text
               style={{
